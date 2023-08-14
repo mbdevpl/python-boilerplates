@@ -5,5 +5,6 @@ include ./*/py.typed
 
 include requirements_setup.txt
 include requirements_packaging_tests.txt
+include requirements_config.txt
 
 include requirements_test.txt

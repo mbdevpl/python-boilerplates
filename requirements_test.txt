@@ -1,3 +1,4 @@
 -r requirements.txt
 -r requirements_setup.txt
 -r requirements_packaging_tests.txt
+-r requirements_config.txt

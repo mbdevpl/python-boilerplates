@@ -19,7 +19,9 @@ class Package(boilerplates.setup.Package):
     keywords = []
     extras_require = {
         'setup': boilerplates.setup.parse_requirements('requirements_setup.txt'),
-        'packaging_tests': boilerplates.setup.parse_requirements('requirements_packaging_tests.txt')
+        'packaging_tests': boilerplates.setup.parse_requirements(
+            'requirements_packaging_tests.txt'),
+        'config': boilerplates.setup.parse_requirements('requirements_config.txt')
     }
 
 

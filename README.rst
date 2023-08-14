@@ -30,7 +30,8 @@ Various boilerplates used in almost all of my Python packages.
     :target: https://app.codacy.com/gh/mbdevpl/python-boilerplates
     :alt: grade from Codacy
 
-...
+This package includes boilerplates for various common tasks in Python packages, such as building
+the package, testing the packaging process and storing the package config.
 
 .. contents::
     :backlinks: none
@@ -120,3 +121,24 @@ And, you will need to add the following to your ``requirements_test.txt`` file (
 .. code:: text
 
     boilerplates[packaging_tests] ~= 0.1
+
+Config boilerplate
+------------------
+
+Module ``boilerplates.config`` provides few utility functions useful to handle local configuration.
+
+Example usage:
+
+.. code:: python
+
+    import boilerplates.config
+
+    ...
+
+    boilerplates.config.initialize_config_directory('app_name')
+
+And, you will need to add the following to your ``requirements.txt`` file (or equivalent):
+
+.. code:: text
+
+    boilerplates[config] ~= 0.2
