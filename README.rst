@@ -14,6 +14,22 @@ Various boilerplates used in almost all of my Python packages.
     :target: NOTICE
     :alt: license
 
+.. image:: https://img.shields.io/pypi/v/boilerplates.svg
+    :target: https://pypi.org/project/boilerplates
+    :alt: package version from PyPI
+
+.. image:: https://github.com/mbdevpl/python-boilerplates/actions/workflows/python.yml/badge.svg?branch=main
+    :target: https://github.com/mbdevpl/python-boilerplates/actions
+    :alt: build status from GitHub
+
+.. image:: https://codecov.io/gh/mbdevpl/python-boilerplates/branch/main/graph/badge.svg
+    :target: https://codecov.io/gh/mbdevpl/python-boilerplates
+    :alt: test coverage from Codecov
+
+.. image:: https://api.codacy.com/project/badge/Grade/f22939bf833e40b89833d96c859bd7a4
+    :target: https://app.codacy.com/gh/mbdevpl/python-boilerplates
+    :alt: grade from Codacy
+
 ...
 
 .. contents::
