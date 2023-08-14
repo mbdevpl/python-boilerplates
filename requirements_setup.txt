@@ -1,0 +1,4 @@
+build >= 0.10
+docutils ~= 0.20
+Pygments ~= 2.14
+setuptools >= 67.4

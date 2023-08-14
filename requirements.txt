@@ -1,0 +1,3 @@
+# docutils ~= 0.19 ; extra == 'setup'
+# setuptools >= 67.4 ; extra == 'setup'
+# version-query ~= 1.4
