@@ -1,4 +1,4 @@
-"""Setup script."""
+"""Setup script for boilerplates package."""
 
 import boilerplates.setup
 
