@@ -8,3 +8,4 @@ include requirements_packaging_tests.txt
 include requirements_config.txt
 
 include requirements_test.txt
+recursive-include ./test __init__.py
