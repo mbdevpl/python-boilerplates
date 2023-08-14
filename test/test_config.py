@@ -13,12 +13,23 @@ class UnitTests(unittest.TestCase):
     """Test basic functionalities of the config boilerplate."""
 
     def test_normalize_path(self):
-        home_path = os.environ['HOME']
+        home_path = os.path.expanduser('~')
         self.assertEqual(boilerplates.config.normalize_path('~/folder'), f'{home_path}/folder')
 
         self.assertEqual(
             boilerplates.config.normalize_path(pathlib.Path('~', 'something')),
             pathlib.Path(home_path).joinpath('something'))
+
+        envvar_value = 'my_custom_value'
+        os.environ['MY_CUSTOM_VAR'] = envvar_value
+
+        self.assertEqual(
+            boilerplates.config.normalize_path(r'${MY_CUSTOM_VAR}/folder'),
+            f'{envvar_value}/folder')
+
+        self.assertEqual(
+            boilerplates.config.normalize_path(pathlib.Path(r'${MY_CUSTOM_VAR}', 'something')),
+            pathlib.Path(envvar_value).joinpath('something'))
 
     def test_initialize_config_directory(self):
         with tempfile.TemporaryDirectory() as temp_dir:
