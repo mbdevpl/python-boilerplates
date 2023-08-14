@@ -3,7 +3,8 @@ requires = [
     'build >= 0.10',
     'docutils ~= 0.20',
     'Pygments ~= 2.14',
-    'setuptools >= 67.4'
+    'setuptools >= 67.4',
+    'version-query ~= 1.5'
 ]
 
 [tool.flake8]
