@@ -329,3 +329,36 @@ And the output of running ``python -m my_pacakge --version`` will look like:
 .. code:: text
 
     my-cli 1.0.1, Python 3.11.0 (main, Feb 13 2023, 00:02:15) [GCC 12.1.0]
+
+Git repo tests boilerplate
+--------------------------
+
+This boilerplate aims at making it easier to test your package in a context of a git repository.
+
+It's only useful if you create a Python package that operates on git repositories, and helps to
+create and modify synthetic git repositories for testing purposes.
+
+To start using ``boilerplates.git_repo_tests``, you can start with a file like this
+in your test folder, for example ``test/test_with_git_repo.py``:
+
+.. code:: python
+
+    """Perform tests on and in synthetic git repositories."""
+
+    import pathlib
+
+    import boilerplates.git_repo_tests
+
+
+    class Tests(boilerplates.git_repo_tests.GitRepoTests):
+
+        ...
+
+However, you will need to check the ``boilerplates.git_repo_tests.GitRepoTests`` class
+for details of available features.
+
+And, you will need to add the following to your ``requirements_test.txt`` file (or equivalent):
+
+.. code:: text
+
+    boilerplates[git_repo_tests] ~= <version>

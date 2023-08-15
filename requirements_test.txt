@@ -4,3 +4,4 @@
 -r requirements_config.txt
 -r requirements_logging.txt
 -r requirements_cli.txt
+-r requirements_git_repo_tests.txt
