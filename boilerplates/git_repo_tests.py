@@ -2,7 +2,6 @@
 
 import logging
 import pathlib
-import platform
 import tempfile
 import unittest
 
