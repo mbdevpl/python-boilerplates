@@ -255,9 +255,6 @@ CLI boilerplate
 
 This boilerplate aims at making CLIs easier to write, by providing a few utility functions.
 
-This boilerplate assumes your package has a ``_version.py`` file that defines a ``VERSION`` constant
-that stores the version of your application.
-
 Your example ``cli.py`` file which defines your command-line interface may look like:
 
 .. code:: python
