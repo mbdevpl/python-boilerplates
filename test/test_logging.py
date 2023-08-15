@@ -106,4 +106,5 @@ class UtilityTests(unittest.TestCase):
     def test_stream_to_call(self):
         log = logging.getLogger(f'{__name__}.test_stream_to_call')
         stream = boilerplates.logging.StreamToCall(log.info)
-        print('test output', file=stream)
+        with self.assertLogs(logger=log, level='INFO'):
+            print('test output', file=stream)

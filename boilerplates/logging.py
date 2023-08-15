@@ -11,7 +11,7 @@ import typing as t
 
 import colorlog
 
-from boilerplates.config import normalize_path
+from .config import normalize_path
 
 LOGS_PATHS = {
     'Linux': pathlib.Path('~', '.local', 'share'),
