@@ -32,9 +32,8 @@ class GitRepoTests(unittest.TestCase):
             self.assertIsInstance(self.repo, git.Repo)
             self.repo.close()
             self.repo = None
-        if platform.system() != 'Windows':
-            self._tmpdir.cleanup()
-            self._tmpdir = None
+        self._tmpdir.cleanup()
+        self._tmpdir = None
 
     @property
     def repo_head_hexsha(self) -> str:
