@@ -3,3 +3,4 @@
 -r requirements_packaging_tests.txt
 -r requirements_config.txt
 -r requirements_logging.txt
+-r requirements_cli.txt

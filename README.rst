@@ -31,7 +31,8 @@ Various boilerplates used in almost all of my Python packages.
     :alt: grade from Codacy
 
 This package includes boilerplates for various common tasks in Python packages, such as building
-the package, testing the packaging process, storing the package config or logging for the package.
+the package, testing the packaging process, storing the package config, logging for the package
+or creating a CLI.
 
 .. contents::
     :backlinks: none
@@ -248,3 +249,86 @@ And, you will need to add the following to your ``requirements.txt`` file (or eq
 .. code:: text
 
     boilerplates[logging] ~= <version>
+
+CLI boilerplate
+---------------
+
+This boilerplate aims at making CLIs easier to write, by providing a few utility functions.
+
+This boilerplate assumes your package has a ``_version.py`` file that defines a ``VERSION`` constant
+that stores the version of your application.
+
+Your example ``cli.py`` file which defines your command-line interface may look like:
+
+.. code:: python
+
+    """Command-line interface definition."""
+
+    import argparse
+
+    import boilerplates.cli
+
+    def main(args=None):
+        """Entry point of the command-line interface."""
+        parser = argparse.ArgumentParser(
+            prog='my-cli',
+            description='''My command-line interface.''',
+            epilog=boilerplates.cli.make_copyright_notice(
+                2019, 2023, author='The Author', license_name='Apache License 2.0',
+                url='https://github.com/...'))
+
+        boilerplates.cli.add_version_option(parser, '1.0.1')
+        boilerplates.cli.add_verbosity_group(parser)
+
+        parsed_args = parser.parse_args(args)
+
+        verbosity = boilerplates.cli.get_verbosity_level(parsed_args)
+        ...
+
+You can see the above example in action in the `<examples.ipynb>`_ notebook.
+Please see the ``boilerplates.cli`` module for details of the available features.
+
+And then, an example ``__main__.py`` file may look like:
+
+.. code:: python
+
+    """Entry point of the command-line interface."""
+
+    # PYTHON_ARGCOMPLETE_OK
+
+    from my_package import cli
+
+
+    if __name__ == '__main__':
+        cli.main()
+
+And, you will need to add the following to your ``requirements.txt`` file (or equivalent):
+
+.. code:: text
+
+    boilerplates[cli] ~= <version>
+
+Then, the output of running ``python -m my_pacakge -h`` will look like:
+
+.. code:: text
+
+    usage: my-cli [-h] [--version] [--verbose | --quiet | --verbosity LEVEL]
+
+    My command-line interface.
+
+    options:
+    -h, --help         show this help message and exit
+    --version          show program's version number and exit
+    --verbose, -v      be more verbose than by default (repeat up to 3 times for
+                        stronger effect)
+    --quiet, -q        be more quiet than by default (repeat up to 2 times for
+                        stronger effect)
+    --verbosity LEVEL  set verbosity level explicitly (normally from 0 to 5)
+
+    Copyright 2019-2023 by The Author. Apache License 2.0. https://github.com/...
+
+And the output of running ``python -m my_pacakge --version`` will look like:
+
+.. code:: text
+
+    my-cli 1.0.1, Python 3.11.0 (main, Feb 13 2023, 00:02:15) [GCC 12.1.0]
