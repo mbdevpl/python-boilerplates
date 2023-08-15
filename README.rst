@@ -166,7 +166,7 @@ add the following in your ``__main__.py``:
     import boilerplates.logging
 
 
-    class Logging(logging_boilerplate.Logging):
+    class Logging(boilerplates.logging.Logging):
         """Logging configuration."""
 
         packages = ['package_name']
