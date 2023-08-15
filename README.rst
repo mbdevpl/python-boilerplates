@@ -101,7 +101,7 @@ You will also need the following in your ``pyproject.toml`` file:
 .. code:: toml
 
     [build-system]
-    requires = ['boilerplates[setup] ~= 0.1']
+    requires = ['boilerplates[setup] ~= <version>']
 
 Packaging tests
 ~~~~~~~~~~~~~~~
@@ -126,7 +126,7 @@ And, you will need to add the following to your ``requirements_test.txt`` file (
 
 .. code:: text
 
-    boilerplates[packaging_tests] ~= 0.1
+    boilerplates[packaging_tests] ~= <version>
 
 Config boilerplate
 ------------------
@@ -147,7 +147,7 @@ And, you will need to add the following to your ``requirements.txt`` file (or eq
 
 .. code:: text
 
-    boilerplates[config] ~= 0.2
+    boilerplates[config] ~= <version>
 
 Logging boilerplate
 -------------------
