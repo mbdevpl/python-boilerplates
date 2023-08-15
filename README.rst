@@ -31,7 +31,7 @@ Various boilerplates used in almost all of my Python packages.
     :alt: grade from Codacy
 
 This package includes boilerplates for various common tasks in Python packages, such as building
-the package, testing the packaging process and storing the package config.
+the package, testing the packaging process, storing the package config or logging for the package.
 
 .. contents::
     :backlinks: none
@@ -148,3 +148,103 @@ And, you will need to add the following to your ``requirements.txt`` file (or eq
 .. code:: text
 
     boilerplates[config] ~= 0.2
+
+Logging boilerplate
+-------------------
+
+Assumptions for this boilerplate are that you want to use the standard built-in Python
+logging module (``logging``), and that your application probably has a CLI entry point
+or some executable script, as opposed to only being a library.
+
+To reduce boilerplate necessary to setup logging for such application,
+add the following in your ``__main__.py``:
+
+.. code:: python
+
+    """Entry point of the command-line interface."""
+
+    import boilerplates.logging
+
+
+    class Logging(logging_boilerplate.Logging):
+        """Logging configuration."""
+
+        packages = ['package_name']
+
+
+    ...
+
+
+    if __name__ == '__main__':
+        Logging.configure()
+        ...
+
+More advanced usage could be (just changing the ``Logging`` class definition):
+
+.. code:: python
+
+    class Logging(boilerplates.logging.Logging):
+        """Logging configuration."""
+
+        packages = ['package_name']
+        level_package = logging.INFO
+        enable_file = True
+        directory = 'package_name'
+
+You can and should adjust the class fields to your needs, please take a look
+at the ``boilerplates.logging.Logging`` class implementation for details.
+
+You may also use this boilerplate in tests even if your code is just a library. In such case,
+add the following to your ``test/__init__.py``:
+
+.. code:: python
+
+    """Initialization of tests."""
+
+    import logging
+
+    import boilerplates.logging
+
+
+    class TestsLogging(boilerplates.logging.Logging):
+        """Logging configuration for tests."""
+
+        packages = ['package_name']
+        level_package = logging.DEBUG
+
+
+    TestsLogging.configure_basic()
+
+If you wish, you can make your test logging config be a variant of your application logging config,
+like so:
+
+.. code:: python
+
+    """Initialization of tests."""
+
+    from my_package.__main__ import Logging
+
+
+    class TestsLogging(Logging):
+        """Logging configuration for tests."""
+
+        enable_file = False
+
+As for using the logging in your code, you can use it as usual, for example:
+
+.. code:: python
+
+    # in a standalone script:
+    _LOG = logging.getLogger(pathlib.Path(__file__).stem)
+    # in a standalone script that can also be imported:
+    _LOG = logging.getLogger(pathlib.Path(__file__).stem if __name__ == '__main__' else __name__)
+    # in __main__.py:
+    _LOG = logging.getLogger(pathlib.Path(__file__).parent.name)
+    # in usual module files:
+    _LOG = logging.getLogger(__name__)
+
+And, you will need to add the following to your ``requirements.txt`` file (or equivalent):
+
+.. code:: text
+
+    boilerplates[logging] ~= <version>

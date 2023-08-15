@@ -21,7 +21,8 @@ class Package(boilerplates.setup.Package):
         'setup': boilerplates.setup.parse_requirements('requirements_setup.txt'),
         'packaging_tests': boilerplates.setup.parse_requirements(
             'requirements_packaging_tests.txt'),
-        'config': boilerplates.setup.parse_requirements('requirements_config.txt')
+        'config': boilerplates.setup.parse_requirements('requirements_config.txt'),
+        'logging': boilerplates.setup.parse_requirements('requirements_logging.txt')
     }
 
 
