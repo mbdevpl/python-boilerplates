@@ -23,7 +23,7 @@ class UnitTests(unittest.TestCase):
 
     def test_version_option(self):
         parser = argparse.ArgumentParser('boilerplates_cli_test')
-        boilerplates.cli.add_version_option(parser)
+        boilerplates.cli.add_version_option(parser, '1.0.0')
         with pathlib.Path(os.devnull).open('w', encoding='utf-8') as devnull:
             with contextlib.redirect_stderr(devnull):
                 with self.assertRaises(SystemExit):
