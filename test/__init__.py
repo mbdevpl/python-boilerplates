@@ -12,4 +12,4 @@ class TestsLogging(boilerplates.logging.Logging):
     level_package = logging.DEBUG
 
 
-TestsLogging.configure_basic()
+TestsLogging.configure()

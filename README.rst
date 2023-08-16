@@ -46,7 +46,7 @@ Python libraries as specified in `<requirements.txt>`_.
 
 Building and running tests additionally requires packages listed in `<requirements_test.txt>`_.
 
-Tested on Linux, OS X and Windows.
+Tested on Linux, macOS and Windows.
 
 Available boilerplates
 ======================
@@ -214,7 +214,7 @@ add the following to your ``test/__init__.py``:
         level_package = logging.DEBUG
 
 
-    TestsLogging.configure_basic()
+    TestsLogging.configure()
 
 If you wish, you can make your test logging config be a variant of your application logging config,
 like so:
