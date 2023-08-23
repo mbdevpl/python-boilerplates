@@ -10,7 +10,7 @@ class Package(boilerplates.setup.Package):
     description = 'Various boilerplates used in almost all of my Python packages.'
     url = 'https://github.com/mbdevpl/python-boilerplates'
     classifiers = [
-        'Development Status :: 1 - Planning',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Apache Software License',
         'Operating System :: MacOS',
