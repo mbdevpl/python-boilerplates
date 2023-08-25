@@ -120,6 +120,7 @@ Example ``test/test_packaging.py``:
 
     import boilerplates.packaging_tests
 
+
     class Tests(boilerplates.packaging_tests.PackagingTests):
         pass
 
