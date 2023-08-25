@@ -17,9 +17,11 @@ from .setup import find_version
 _LOG = logging.getLogger(__name__)
 
 
-def expand_args_by_globbing_items(*args: str) -> t.Tuple[str, ...]:
+def expand_args_by_globbing_items(
+        *args: str, cwd: t.Optional[pathlib.Path] = None) -> t.Tuple[str, ...]:
     """Expand a list of glob expressions."""
-    cwd = pathlib.Path.cwd()
+    if cwd is None:
+        cwd = pathlib.Path.cwd()
     expanded_args = []
     for arg in args:
         if '*' not in arg:
@@ -82,6 +84,14 @@ class PackagingTests(unittest.TestCase):
     """Test if the boilerplate can actually create a valid package."""
 
     pkg_name = get_package_folder_name()
+
+    def test_expand_args_in_cwd(self):
+        expanded_args = expand_args_by_globbing_items('*.py')
+        self.assertIn('setup.py', expanded_args)
+
+    def test_expand_args_in_package_folder(self):
+        expanded_args = expand_args_by_globbing_items('*.py', cwd=pathlib.Path(self.pkg_name))
+        self.assertIn('__init__.py', expanded_args)
 
     def test_build(self):
         run_program(sys.executable, '-m', 'build')
