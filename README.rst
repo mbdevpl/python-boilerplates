@@ -212,7 +212,7 @@ add the following to your ``test/__init__.py``:
         """Logging configuration for tests."""
 
         packages = ['package_name']
-        level_package = logging.DEBUG
+        level_package = logging.INFO
 
 
     TestsLogging.configure()
