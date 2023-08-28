@@ -34,21 +34,21 @@ class UnitTests(unittest.TestCase):
     def test_initialize_config_directory(self):
         with tempfile.TemporaryDirectory() as temp_dir:
             with unittest.mock.patch.object(
-                    boilerplates.config, 'CONFIG_PATH', pathlib.Path(temp_dir)):
-                self.assertTrue(boilerplates.config.CONFIG_PATH.is_dir())
+                    boilerplates.config, 'CONFIGS_PATH', pathlib.Path(temp_dir)):
+                self.assertTrue(boilerplates.config.CONFIGS_PATH.is_dir())
                 boilerplates.config.initialize_config_directory('my_app')
-                self.assertTrue(boilerplates.config.CONFIG_PATH.joinpath('my_app').is_dir())
+                self.assertTrue(boilerplates.config.CONFIGS_PATH.joinpath('my_app').is_dir())
 
             with unittest.mock.patch.object(
-                    boilerplates.config, 'CONFIG_PATH', pathlib.Path(temp_dir, 'logs')):
-                self.assertFalse(boilerplates.config.CONFIG_PATH.exists())
+                    boilerplates.config, 'CONFIGS_PATH', pathlib.Path(temp_dir, 'logs')):
+                self.assertFalse(boilerplates.config.CONFIGS_PATH.exists())
                 boilerplates.config.initialize_config_directory('my_app')
-                self.assertTrue(boilerplates.config.CONFIG_PATH.is_dir())
-                self.assertTrue(boilerplates.config.CONFIG_PATH.joinpath('my_app').is_dir())
+                self.assertTrue(boilerplates.config.CONFIGS_PATH.is_dir())
+                self.assertTrue(boilerplates.config.CONFIGS_PATH.joinpath('my_app').is_dir())
 
             pathlib.Path(temp_dir, 'logging').mkdir()
             with unittest.mock.patch.object(
-                    boilerplates.config, 'CONFIG_PATH', pathlib.Path(temp_dir)):
-                self.assertTrue(boilerplates.config.CONFIG_PATH.joinpath('logging').is_dir())
+                    boilerplates.config, 'CONFIGS_PATH', pathlib.Path(temp_dir)):
+                self.assertTrue(boilerplates.config.CONFIGS_PATH.joinpath('logging').is_dir())
                 boilerplates.config.initialize_config_directory('logging')
-                self.assertTrue(boilerplates.config.CONFIG_PATH.joinpath('logging').is_dir())
+                self.assertTrue(boilerplates.config.CONFIGS_PATH.joinpath('logging').is_dir())
