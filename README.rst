@@ -10,10 +10,6 @@ Python boilerplates
 
 Various boilerplates used in almost all of my Python packages.
 
-.. image:: https://img.shields.io/github/license/mbdevpl/python-boilerplates.svg
-    :target: NOTICE
-    :alt: license
-
 .. image:: https://img.shields.io/pypi/v/boilerplates.svg
     :target: https://pypi.org/project/boilerplates
     :alt: package version from PyPI
@@ -29,6 +25,10 @@ Various boilerplates used in almost all of my Python packages.
 .. image:: https://api.codacy.com/project/badge/Grade/f22939bf833e40b89833d96c859bd7a4
     :target: https://app.codacy.com/gh/mbdevpl/python-boilerplates
     :alt: grade from Codacy
+
+.. image:: https://img.shields.io/github/license/mbdevpl/python-boilerplates.svg
+    :target: NOTICE
+    :alt: license
 
 This package includes boilerplates for various common tasks in Python packages, such as building
 the package, testing the packaging process, storing the package config, logging for the package
