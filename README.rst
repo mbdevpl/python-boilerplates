@@ -189,7 +189,7 @@ More advanced usage could be (just changing the ``Logging`` class definition):
         """Logging configuration."""
 
         packages = ['package_name']
-        level_package = logging.INFO
+        level_global = logging.INFO
         enable_file = True
         directory = 'package_name'
 
@@ -306,7 +306,7 @@ And, you will need to add the following to your ``requirements.txt`` file (or eq
 
     boilerplates[cli] ~= <version>
 
-Then, the output of running ``python -m my_pacakge -h`` will look like:
+Then, the output of running ``python -m my_package -h`` will look like:
 
 .. code:: text
 
@@ -325,7 +325,7 @@ Then, the output of running ``python -m my_pacakge -h`` will look like:
 
     Copyright 2019-2023 by The Author. Apache License 2.0. https://github.com/...
 
-And the output of running ``python -m my_pacakge --version`` will look like:
+And the output of running ``python -m my_package --version`` will look like:
 
 .. code:: text
 
