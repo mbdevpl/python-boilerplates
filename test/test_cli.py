@@ -35,9 +35,11 @@ class UnitTests(unittest.TestCase):
             with self.subTest(logging_level=logging_level):
                 verbosity = boilerplates.cli.logging_level_to_verbosity_level(logging_level)
                 self.assertGreaterEqual(
-                    verbosity, boilerplates.cli._VERBOSITY_MIN)  # pylint: disable=protected-access
+                    verbosity,
+                    boilerplates.cli._VERBOSITY_MIN)  # pylint: disable = protected-access
                 self.assertLessEqual(
-                    verbosity, boilerplates.cli._VERBOSITY_MAX)  # pylint: disable=protected-access
+                    verbosity,
+                    boilerplates.cli._VERBOSITY_MAX)  # pylint: disable = protected-access
                 converted_logging_level = \
                     boilerplates.cli.verbosity_level_to_logging_level(verbosity)
                 self.assertEqual(converted_logging_level, logging_level)
@@ -56,14 +58,14 @@ class UnitTests(unittest.TestCase):
         parsed_args = parser.parse_args([])
         verbosity = boilerplates.cli.get_verbosity_level(parsed_args)
         self.assertEqual(
-            verbosity, boilerplates.cli._VERBOSITY_DEFAULT)  # pylint: disable=protected-access
+            verbosity, boilerplates.cli._VERBOSITY_DEFAULT)  # pylint: disable = protected-access
 
     def test_verbosity_by_level(self):
         parser = argparse.ArgumentParser()
         boilerplates.cli.add_verbosity_group(parser)
         for verbosity in range(
-                boilerplates.cli._VERBOSITY_MIN,  # pylint: disable=protected-access
-                boilerplates.cli._VERBOSITY_MAX):  # pylint: disable=protected-access
+                boilerplates.cli._VERBOSITY_MIN,  # pylint: disable = protected-access
+                boilerplates.cli._VERBOSITY_MAX):  # pylint: disable = protected-access
             parsed_args = parser.parse_args([f'--verbosity={verbosity}'])
             parsed_verbosity = boilerplates.cli.get_verbosity_level(parsed_args)
             self.assertEqual(parsed_verbosity, verbosity)
@@ -86,13 +88,13 @@ class UnitTests(unittest.TestCase):
                 }.items():
             parsed_args = parser.parse_args(flags)
             verbosity = boilerplates.cli.get_verbosity_level(parsed_args)
-            # pylint: disable=protected-access
+            # pylint: disable = protected-access
             self.assertEqual(verbosity, boilerplates.cli._VERBOSITY_DEFAULT + verbosity_change)
 
     def test_too_many_verbosity_flags(self):
         parser = argparse.ArgumentParser()
         boilerplates.cli.add_verbosity_group(parser)
-        # pylint: disable=protected-access
+        # pylint: disable = protected-access
         for flags in (
                 [f'-{"v" * (boilerplates.cli._VERBOSE_MAX_COUNT + 1)}'],
                 [f'-{"v" * (boilerplates.cli._VERBOSE_MAX_COUNT + 2)}'],

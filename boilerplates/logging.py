@@ -206,8 +206,8 @@ def unittest_verbosity() -> t.Optional[int]:
 
     Default verbosity level is 1, 0 means quiet and 2 means verbose.
     """
-    import inspect  # pylint: disable=import-outside-toplevel
-    import unittest  # pylint: disable=import-outside-toplevel
+    import inspect  # pylint: disable = import-outside-toplevel
+    import unittest  # pylint: disable = import-outside-toplevel
 
     frame = inspect.currentframe()
     while frame:

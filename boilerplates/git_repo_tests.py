@@ -17,7 +17,7 @@ class GitRepoTests(unittest.TestCase):
     repo_path = None  # type: pathlib.Path
 
     def setUp(self):
-        self._tmpdir = tempfile.TemporaryDirectory()  # pylint: disable=consider-using-with
+        self._tmpdir = tempfile.TemporaryDirectory()  # pylint: disable = consider-using-with
         self.repo_path = pathlib.Path(self._tmpdir.name)
         self.assertTrue(self.repo_path.is_dir())
         self.repo = None

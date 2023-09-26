@@ -157,7 +157,7 @@ class PackageTests(unittest.TestCase):
     """Test methods of Package class."""
 
     def test_try_fields(self):
-        class Package(boilerplates.setup.Package):  # pylint: disable=too-few-public-methods
+        class Package(boilerplates.setup.Package):  # pylint: disable = too-few-public-methods
             name = 'package name'
             description = 'package description'
 
@@ -169,7 +169,7 @@ class PackageTests(unittest.TestCase):
             Package.try_fields('bad_field', 'another_bad_field')
 
     def test_parse_readme(self):
-        class Package(boilerplates.setup.Package):  # pylint: disable=too-few-public-methods
+        class Package(boilerplates.setup.Package):  # pylint: disable = too-few-public-methods
             name = 'package name'
             description = 'package description'
             version = '1.2.3.4'
@@ -209,7 +209,7 @@ class PackageTests(unittest.TestCase):
         long_description_ = 'long package description'
 
         class Package(boilerplates.setup.Package):
-            # pylint: disable=too-few-public-methods, missing-docstring
+            # pylint: disable = too-few-public-methods, missing-docstring
             name = 'package name'
             version = version_
             description = 'package description'
