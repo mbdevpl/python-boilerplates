@@ -252,6 +252,47 @@ And, you will need to add the following to your ``requirements.txt`` file (or eq
 
     boilerplates[logging] ~= <version>
 
+Sentry boilerplate
+------------------
+
+This boilerplate aims at simplifying the process of setting up Sentry integration
+for your Python application.
+
+Assumptions for this boilerplate are similar to logging boilerplate, in that
+you want to use the standard built-in Python
+logging module (``logging``), and that your application probably has a CLI entry point
+or some executable script, as opposed to only being a library.
+
+Then, the example ``__main__.py`` file may look like:
+
+.. code:: python
+
+    """Entry point of the command-line interface."""
+
+    import boilerplates.sentry
+
+    from ._version import VERSION
+
+
+    class Sentry(boilerplates.sentry.Sentry):
+        """Sentry configuration."""
+
+        release = VERSION
+
+
+    ...
+
+
+    if __name__ == '__main__':
+        Sentry.init()
+        ...
+
+And, you will need to add the following to your ``requirements.txt`` file (or equivalent):
+
+.. code:: text
+
+    boilerplates[sentry] ~= <version>
+
 CLI boilerplate
 ---------------
 
