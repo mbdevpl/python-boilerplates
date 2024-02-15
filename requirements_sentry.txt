@@ -1,0 +1,2 @@
+ratelimit ~= 2.2
+sentry-sdk ~= 1.40

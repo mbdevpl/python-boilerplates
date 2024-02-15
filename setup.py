@@ -35,6 +35,7 @@ class Package(boilerplates.setup.Package):
             'requirements_packaging_tests.txt'),
         'config': boilerplates.setup.parse_requirements('requirements_config.txt'),
         'logging': boilerplates.setup.parse_requirements('requirements_logging.txt'),
+        'sentry': boilerplates.setup.parse_requirements('requirements_sentry.txt'),
         'cli': boilerplates.setup.parse_requirements('requirements_cli.txt'),
         'git_repo_tests': boilerplates.setup.parse_requirements('requirements_git_repo_tests.txt')}
 
