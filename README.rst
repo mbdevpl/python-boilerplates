@@ -212,7 +212,7 @@ add the following to your ``test/__init__.py``:
         """Logging configuration for tests."""
 
         packages = ['package_name']
-        level_package = logging.INFO
+        level_global = logging.INFO
 
 
     TestsLogging.configure()
@@ -230,7 +230,8 @@ like so:
     class TestsLogging(Logging):
         """Logging configuration for tests."""
 
-        enable_file = False
+        level_global = logging.DEBUG  # relevant if level_global is set to e.g. INFO in parent class
+        enable_file = False  # relevant if enable_file is set to True in parent class
 
 As for using the logging in your code, you can use it as usual, for example:
 
