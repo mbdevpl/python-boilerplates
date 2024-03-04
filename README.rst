@@ -287,6 +287,9 @@ Then, the example ``__main__.py`` file may look like:
         Sentry.init()
         ...
 
+You can and should adjust the class fields to your needs, please take a look
+at the ``boilerplates.sentry.Sentry`` class implementation for details.
+
 And, you will need to add the following to your ``requirements.txt`` file (or equivalent):
 
 .. code:: text
