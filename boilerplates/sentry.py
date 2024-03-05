@@ -5,7 +5,14 @@ import os
 import typing as t
 
 import sentry_sdk
+import sentry_sdk.integrations
+import sentry_sdk.integrations.argv
+import sentry_sdk.integrations.excepthook
 import sentry_sdk.integrations.logging
+import sentry_sdk.integrations.modules
+import sentry_sdk.integrations.pure_eval
+import sentry_sdk.integrations.stdlib
+import sentry_sdk.integrations.threading
 
 _LOG = logging.getLogger(__name__)
 
@@ -23,6 +30,19 @@ class Sentry:
     dsn: str
     release: str
     environment: str
+    integrations: t.List[sentry_sdk.integrations.Integration] = [
+        sentry_sdk.integrations.argv.ArgvIntegration(),
+        sentry_sdk.integrations.excepthook.ExcepthookIntegration(always_run=False),
+        sentry_sdk.integrations.logging.LoggingIntegration(
+            level=logging.INFO, event_level=logging.ERROR),
+        sentry_sdk.integrations.modules.ModulesIntegration(),
+        sentry_sdk.integrations.pure_eval.PureEvalIntegration(),
+        sentry_sdk.integrations.stdlib.StdlibIntegration(),
+        sentry_sdk.integrations.threading.ThreadingIntegration()
+    ]
+
+    traces_sample_rate: float = 1.0
+    profiles_sample_rate: float = 1.0
 
     @classmethod
     def _get_param(cls, param_name: str) -> t.Optional[str]:
@@ -39,8 +59,8 @@ class Sentry:
         sentry_sdk.init(
             *args, dsn=dsn,
             release=cls._get_param('release'), environment=cls._get_param('environment'),
-            integrations=[
-                sentry_sdk.integrations.logging.LoggingIntegration(
-                    level=logging.INFO, event_level=logging.ERROR)],
-            traces_sample_rate=1.0, profiles_sample_rate=1.0, enable_tracing=True,
+            integrations=cls.integrations,
+            traces_sample_rate=cls.traces_sample_rate,
+            profiles_sample_rate=cls.profiles_sample_rate,
+            enable_tracing=cls.profiles_sample_rate > 0,
             **kwargs)
