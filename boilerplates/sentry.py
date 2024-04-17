@@ -45,20 +45,29 @@ class Sentry:
     profiles_sample_rate: float = 1.0
 
     @classmethod
-    def _get_param(cls, param_name: str) -> t.Optional[str]:
-        """Get a parameter value by checking envvar first."""
+    def _get_str_param(cls, param_name: str) -> t.Optional[str]:
+        """Get a string parameter value by checking envvar first.
+
+        Works only for 'dsn', 'release' or 'environment' parameters.
+        """
+        assert param_name in ('dsn', 'release', 'environment'), param_name
         return os.environ.get(f'SENTRY_{param_name.upper()}', getattr(cls, param_name, None))
+
+    @classmethod
+    def is_dsn_set(cls) -> bool:
+        """Check if Sentry DSN parameter is set, thus if Sentry SDK should be initialised or not."""
+        dsn = cls._get_str_param('dsn')
+        return dsn is not None and len(dsn) > 0
 
     @classmethod
     def init(cls, *args, **kwargs):
         """Initialise Sentry SDK."""
-        dsn = cls._get_param('dsn')
-        if dsn is None or not dsn:
+        if not cls.is_dsn_set():
             _LOG.info('Sentry DSN is not set, skipping Sentry SDK initialisation')
             return
         sentry_sdk.init(
-            *args, dsn=dsn,
-            release=cls._get_param('release'), environment=cls._get_param('environment'),
+            *args, dsn=cls._get_str_param('dsn'),
+            release=cls._get_str_param('release'), environment=cls._get_str_param('environment'),
             integrations=cls.integrations,
             traces_sample_rate=cls.traces_sample_rate,
             profiles_sample_rate=cls.profiles_sample_rate,
