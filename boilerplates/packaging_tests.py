@@ -83,7 +83,10 @@ def get_package_folder_name():
 class PackagingTests(unittest.TestCase):
     """Test if the boilerplate can actually create a valid package."""
 
-    pkg_name = get_package_folder_name()
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.pkg_name = get_package_folder_name()
 
     def test_expand_args_in_cwd(self):
         expanded_args = expand_args_by_globbing_items('*.py')
