@@ -212,7 +212,7 @@ add the following to your ``test/__init__.py``:
         """Logging configuration for tests."""
 
         packages = ['package_name']
-        level_package = logging.INFO
+        level_global = logging.INFO
 
 
     TestsLogging.configure()
@@ -230,7 +230,8 @@ like so:
     class TestsLogging(Logging):
         """Logging configuration for tests."""
 
-        enable_file = False
+        level_global = logging.DEBUG  # relevant if level_global is set to e.g. INFO in parent class
+        enable_file = False  # relevant if enable_file is set to True in parent class
 
 As for using the logging in your code, you can use it as usual, for example:
 
@@ -250,6 +251,50 @@ And, you will need to add the following to your ``requirements.txt`` file (or eq
 .. code:: text
 
     boilerplates[logging] ~= <version>
+
+Sentry boilerplate
+------------------
+
+This boilerplate aims at simplifying the process of setting up Sentry integration
+for your Python application.
+
+Assumptions for this boilerplate are similar to logging boilerplate, in that
+you want to use the standard built-in Python
+logging module (``logging``), and that your application probably has a CLI entry point
+or some executable script, as opposed to only being a library.
+
+Then, the example ``__main__.py`` file may look like:
+
+.. code:: python
+
+    """Entry point of the command-line interface."""
+
+    import boilerplates.sentry
+
+    from ._version import VERSION
+
+
+    class Sentry(boilerplates.sentry.Sentry):
+        """Sentry configuration."""
+
+        release = VERSION
+
+
+    ...
+
+
+    if __name__ == '__main__':
+        Sentry.init()
+        ...
+
+You can and should adjust the class fields to your needs, please take a look
+at the ``boilerplates.sentry.Sentry`` class implementation for details.
+
+And, you will need to add the following to your ``requirements.txt`` file (or equivalent):
+
+.. code:: text
+
+    boilerplates[sentry] ~= <version>
 
 CLI boilerplate
 ---------------
