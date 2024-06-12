@@ -5,6 +5,6 @@ flake518 ~= 1.6; python_version >= '3.9'
 mypy ~= 1.5
 pydocstyle ~= 6.3
 pylint ~= 3.1
+twine ~= 5.1
 types-docutils ~= 0.20
 types-setuptools >= 70.0
-twine ~= 5.1
