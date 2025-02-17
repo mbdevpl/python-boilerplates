@@ -129,7 +129,8 @@ class PackagingTests(unittest.TestCase):
 
     def test_install_source_zip(self):
         with tempfile.TemporaryDirectory() as temporary_folder:
-            run_pip('install', '--prefix', temporary_folder, f'dist/*-{self.version}.zip', glob=True)
+            run_pip(
+                'install', '--prefix', temporary_folder, f'dist/*-{self.version}.zip', glob=True)
         self.assertFalse(pathlib.Path(temporary_folder).exists())
 
     def test_install_wheel(self):
