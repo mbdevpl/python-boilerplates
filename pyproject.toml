@@ -4,7 +4,7 @@ requires = [
     'docutils ~= 0.20',
     'Pygments ~= 2.14',
     'setuptools >= 67.4',
-    'version-query ~= 1.5'
+    'version-query ~= 1.6'
 ]
 
 [tool.flake8]

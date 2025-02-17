@@ -8,7 +8,6 @@ import tempfile
 import unittest
 
 import boilerplates.setup
-import boilerplates.packaging_tests
 
 _LOG = logging.getLogger(__name__)
 
@@ -68,8 +67,7 @@ class UnitTests(unittest.TestCase):
     """Test basic functionalities of the setup boilerplate."""
 
     def test_find_version(self):
-        result = boilerplates.setup.find_version(
-            boilerplates.packaging_tests.get_package_folder_name())
+        result = boilerplates.setup.find_version('.', 'setup')
         self.assertIsInstance(result, str)
 
     def test_find_packages(self):

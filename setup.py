@@ -1,12 +1,17 @@
 """Setup script for boilerplates package."""
 
+from version_query import predict_version_str
+
 import boilerplates.setup
+
+VERSION = predict_version_str()
 
 
 class Package(boilerplates.setup.Package):
     """Package metadata."""
 
     name = 'boilerplates'
+    version = VERSION
     description = 'Various boilerplates used in almost all of my Python packages.'
     url = 'https://github.com/mbdevpl/python-boilerplates'
     classifiers = [
