@@ -40,7 +40,7 @@ or creating a CLI.
 Requirements
 ============
 
-Python version 3.8 or later.
+Python version 3.9 or later.
 
 Python libraries as specified in `<requirements.txt>`_.
 
@@ -86,7 +86,6 @@ Example ``setup.py``:
         author_email = '...'
         classifiers = [
             'Development Status :: 1 - Planning',
-            'Programming Language :: Python :: 3.8',
             'Programming Language :: Python :: 3.9',
             'Programming Language :: Python :: 3.10',
             'Programming Language :: Python :: 3.11',
