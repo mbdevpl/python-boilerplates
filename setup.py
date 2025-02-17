@@ -1,8 +1,33 @@
 """Setup script for boilerplates package."""
 
-from version_query import predict_version_str
+import pathlib
+import shutil
+import tempfile
+
+import git
 
 import boilerplates.setup
+
+
+def prepare_local_version_query():
+    """Prepare local copy of version_query package to avoid circular dependency between packages."""
+    here = pathlib.Path(__file__).parent
+    module_path = here / 'boilerplates' / 'bundled_version_query'
+    if module_path.exists():
+        return
+    with tempfile.TemporaryDirectory() as temporary_path:
+        repo_path = pathlib.Path(temporary_path)
+        print(f'ensuring version-query repository is available locally at "{repo_path}"')
+        repo = git.Repo.clone_from('https://github.com/mbdevpl/version-query', repo_path)
+        repo.git.checkout('v1.6.1')
+        print(f'ensuring version_query module is available locally at "{module_path}"')
+        shutil.copytree(repo_path / 'version_query', module_path, dirs_exist_ok=True)
+
+
+prepare_local_version_query()
+
+# pylint: disable=wrong-import-position
+from boilerplates.bundled_version_query import predict_version_str
 
 VERSION = predict_version_str()
 
