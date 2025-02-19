@@ -22,6 +22,15 @@ pipeline {
 
   stages {
 
+    stage('Prepare') {
+      steps {
+        sh '''#!/usr/bin/env bash
+          set -Eeuxo pipefail
+          python3 -m build
+        '''
+      }
+    }
+
     stage('Lint') {
       environment {
         PYTHON_MODULES = "${env.PYTHON_PACKAGE} test *.py"

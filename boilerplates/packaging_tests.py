@@ -83,10 +83,14 @@ def get_package_folder_name():
 class PackagingTests(unittest.TestCase):
     """Test if the boilerplate can actually create a valid package."""
 
+    pkg_name: t.Optional[str] = None
+    version: t.Optional[str] = None
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.pkg_name = get_package_folder_name()
+        cls.pkg_name = get_package_folder_name() if cls.pkg_name is None else cls.pkg_name
+        cls.version = find_version(cls.pkg_name) if cls.version is None else cls.version
 
     def test_expand_args_in_cwd(self):
         expanded_args = expand_args_by_globbing_items('*.py')
@@ -118,23 +122,21 @@ class PackagingTests(unittest.TestCase):
         self.assertFalse(pathlib.Path(temporary_folder).exists())
 
     def test_install_source_tar(self):
-        version = find_version(self.pkg_name)
         with tempfile.TemporaryDirectory() as temporary_folder:
             run_pip(
-                'install', '--prefix', temporary_folder, f'dist/*-{version}.tar.gz', glob=True)
+                'install', '--prefix', temporary_folder, f'dist/*-{self.version}.tar.gz', glob=True)
         self.assertFalse(pathlib.Path(temporary_folder).exists())
 
     def test_install_source_zip(self):
-        version = find_version(self.pkg_name)
         with tempfile.TemporaryDirectory() as temporary_folder:
-            run_pip('install', '--prefix', temporary_folder, f'dist/*-{version}.zip', glob=True)
+            run_pip(
+                'install', '--prefix', temporary_folder, f'dist/*-{self.version}.zip', glob=True)
         self.assertFalse(pathlib.Path(temporary_folder).exists())
 
     def test_install_wheel(self):
-        version = find_version(self.pkg_name)
         with tempfile.TemporaryDirectory() as temporary_folder:
             run_pip(
-                'install', '--prefix', temporary_folder, f'dist/*-{version}-*.whl', glob=True)
+                'install', '--prefix', temporary_folder, f'dist/*-{self.version}-*.whl', glob=True)
         self.assertFalse(pathlib.Path(temporary_folder).exists())
 
     def test_pip_error(self):

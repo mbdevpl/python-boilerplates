@@ -1,12 +1,44 @@
 """Setup script for boilerplates package."""
 
+import pathlib
+import shutil
+import tempfile
+
+import git
+
 import boilerplates.setup
+
+
+def prepare_local_version_query():
+    """Prepare local copy of version_query package to avoid circular dependency between packages."""
+    here = pathlib.Path(__file__).parent
+    module_path = here / 'boilerplates' / 'bundled_version_query'
+    if module_path.exists():
+        return
+    with tempfile.TemporaryDirectory() as temporary_path:
+        repo_path = pathlib.Path(temporary_path)
+        print(f'ensuring version-query repository is available locally at "{repo_path}"')
+        repo = git.Repo.clone_from('https://github.com/mbdevpl/version-query', repo_path)
+        repo.git.checkout('v1.6.2')
+        print(f'ensuring version_query module is available locally at "{module_path}"')
+        shutil.copytree(repo_path / 'version_query', module_path, dirs_exist_ok=True)
+    for filename in ('_version.py', '__main__.py', 'main.py'):
+        module_path.joinpath(filename).unlink()
+
+
+prepare_local_version_query()
+
+# pylint: disable = wrong-import-position
+from boilerplates.bundled_version_query import predict_version_str  # noqa: E402
+
+VERSION = predict_version_str()
 
 
 class Package(boilerplates.setup.Package):
     """Package metadata."""
 
     name = 'boilerplates'
+    version = VERSION
     description = 'Various boilerplates used in almost all of my Python packages.'
     url = 'https://github.com/mbdevpl/python-boilerplates'
     classifiers = [
