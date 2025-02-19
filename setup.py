@@ -26,8 +26,8 @@ def prepare_local_version_query():
 
 prepare_local_version_query()
 
-# pylint: disable=wrong-import-position
-from boilerplates.bundled_version_query import predict_version_str
+# pylint: disable = wrong-import-position
+from boilerplates.bundled_version_query import predict_version_str  # noqa: E402
 
 VERSION = predict_version_str()
 
