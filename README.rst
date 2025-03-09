@@ -127,7 +127,7 @@ And, you will need to add the following to your ``requirements_test.txt`` file (
 
 .. code:: text
 
-    boilerplates[packaging_tests] ~= <version>
+    boilerplates[packaging-tests] ~= <version>
 
 Config boilerplate
 ------------------
@@ -406,4 +406,4 @@ And, you will need to add the following to your ``requirements_test.txt`` file (
 
 .. code:: text
 
-    boilerplates[git_repo_tests] ~= <version>
+    boilerplates[git-repo-tests] ~= <version>

@@ -64,13 +64,13 @@ class Package(boilerplates.setup.Package):
     keywords = ['git', 'logging', 'packaging', 'releasing']
     extras_require = {
         'setup': boilerplates.setup.parse_requirements('requirements_setup.txt'),
-        'packaging_tests': boilerplates.setup.parse_requirements(
+        'packaging-tests': boilerplates.setup.parse_requirements(
             'requirements_packaging_tests.txt'),
         'config': boilerplates.setup.parse_requirements('requirements_config.txt'),
         'logging': boilerplates.setup.parse_requirements('requirements_logging.txt'),
         'sentry': boilerplates.setup.parse_requirements('requirements_sentry.txt'),
         'cli': boilerplates.setup.parse_requirements('requirements_cli.txt'),
-        'git_repo_tests': boilerplates.setup.parse_requirements('requirements_git_repo_tests.txt')}
+        'git-repo-tests': boilerplates.setup.parse_requirements('requirements_git_repo_tests.txt')}
 
 
 if __name__ == '__main__':
