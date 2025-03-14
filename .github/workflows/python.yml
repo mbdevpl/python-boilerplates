@@ -31,7 +31,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - run: pip install -r requirements_ci.txt
-      - run: python -m coverage run --branch --source . -m unittest -v
+      - run: python -m coverage run --branch --source . --omit "boilerplates/bundled_version_query/*" -m unittest -v
       - run: python -m coverage report --show-missing
       - run: python -m codecov --token ${{ secrets.CODECOV_TOKEN }}
   publish:
