@@ -54,7 +54,7 @@ pipeline {
       steps {
         sh '''#!/usr/bin/env bash
           set -Eeuxo pipefail
-          python3 -m coverage run --branch --source . -m unittest -v
+          python3 -m coverage run --branch --source . --omit "${PYTHON_PACKAGE}/bundled_version_query/*" -m unittest -v
         '''
       }
     }
