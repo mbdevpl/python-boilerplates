@@ -19,7 +19,7 @@ HERE = pathlib.Path(__file__).resolve().parent
 DEFAULT_URL = 'https://github.com/mbdevpl'
 DEFAULT_AUTHOR = 'Mateusz Bysiek'
 DEFAULT_AUTHOR_EMAIL = 'mateusz.bysiek@gmail.com'
-DEFAULT_LICENSE_STR = 'Apache License 2.0'
+DEFAULT_LICENSE_STR = 'Apache-2.0'
 
 TEST_PACKAGES = [
     'test',
