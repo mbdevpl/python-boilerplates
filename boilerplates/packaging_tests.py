@@ -100,20 +100,34 @@ class PackagingTests(unittest.TestCase):
         expanded_args = expand_args_by_globbing_items('*.py', cwd=pathlib.Path(self.pkg_name))
         self.assertIn('__init__.py', expanded_args)
 
+    def test_setup_help(self):
+        run_module('setup', '--help')
+        # self.assertTrue(os.path.isdir('dist'))
+
     def test_build(self):
         run_program(sys.executable, '-m', 'build')
         self.assertTrue(os.path.isdir('dist'))
 
-    def test_build_binary(self):
-        run_module('setup', 'bdist')
-        self.assertTrue(os.path.isdir('dist'))
+    # def test_build_binary(self):
+    #     run_module('setup', 'bdist')
+    #     self.assertTrue(os.path.isdir('dist'))
 
     def test_build_wheel(self):
-        run_module('setup', 'bdist_wheel')
+        # run_module('setup', 'bdist_wheel')
+        run_module('build', '--wheel')
+        self.assertTrue(os.path.isdir('dist'))
+
+    def test_build_wheel_no_isolation(self):
+        run_module('build', '--wheel', '--no-isolation')
         self.assertTrue(os.path.isdir('dist'))
 
     def test_build_source(self):
-        run_module('setup', 'sdist', '--formats=gztar,zip')
+        # run_module('setup', 'sdist', '--formats=gztar,zip')
+        run_module('build', '--sdist')
+        self.assertTrue(os.path.isdir('dist'))
+
+    def test_build_source_no_isolation(self):
+        run_module('build', '--sdist', '--no-isolation')
         self.assertTrue(os.path.isdir('dist'))
 
     def test_install_code(self):
