@@ -298,8 +298,6 @@ class Package:
     'console_scripts': ['script_name = package.subpackage:function']
     """
 
-    test_suite: str = 'test'
-
     @classmethod
     def try_fields(cls, *names) -> t.Optional[t.Any]:
         """Return first existing of given class field names."""
@@ -366,4 +364,4 @@ class Package:
             package_data=cls.package_data, exclude_package_data=cls.exclude_package_data,
             install_requires=cls.install_requires, extras_require=cls.extras_require,
             python_requires=cls.python_requires,
-            entry_points=cls.entry_points, test_suite=cls.test_suite)
+            entry_points=cls.entry_points)
