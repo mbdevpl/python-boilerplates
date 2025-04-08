@@ -27,7 +27,7 @@ class Sentry:
     For each parameter, the name of the environment variable name is 'SENTRY_'
     followed by the parameter name in upper case.
 
-    The class attribute tags, if set, will be added to the scope of the
+    The class attribute tags, if set, will be added to the global scope of the
     current Sentry SDK.
     """
 
@@ -72,19 +72,6 @@ class Sentry:
         return dsn is not None and len(dsn) > 0
 
     @classmethod
-    def set_tags(cls, tags: t.Dict[str, str]):
-        """Set tags for the current scope."""
-        with sentry_sdk.configure_scope() as scope:
-            scope.set_tags(tags)
-
-    @classmethod
-    def remove_tags(cls, tags: t.List[str]):
-        """Remove tags from the current scope."""
-        with sentry_sdk.configure_scope() as scope:
-            for tag in tags:
-                scope.remove_tag(tag)
-
-    @classmethod
     def init(cls, *args, **kwargs):
         """Initialise Sentry SDK."""
         if not cls.is_dsn_set():
@@ -105,4 +92,4 @@ class Sentry:
             default_integrations=cls.default_integrations,
             **kwargs)
 
-        cls.set_tags(cls.tags)
+        sentry_sdk.set_tags(cls.tags)
