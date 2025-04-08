@@ -1,5 +1,3 @@
-build ~= 1.2
 docutils ~= 0.20
 Pygments ~= 2.14
 setuptools >= 77.0.3
-version-query ~= 1.6

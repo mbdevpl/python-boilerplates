@@ -1,12 +1,13 @@
 [build-system]
+build-backend = 'setuptools.build_meta'
 requires = [
-    'build >= 0.10',
+    'boilerplates[setup] ~= 1.1, >= 1.1.4',
     'docutils ~= 0.20',
     'GitPython ~= 3.1',
     'packaging >= 24.0',
     'Pygments ~= 2.14',
     'semver >= 2.13, < 3.1',
-    'setuptools >= 67.4'
+    'setuptools >= 70.0.3'
 ]
 
 [tool.flake8]

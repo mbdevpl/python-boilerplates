@@ -6,4 +6,3 @@
 -r requirements_sentry.txt
 -r requirements_cli.txt
 -r requirements_git_repo_tests.txt
-version-query ~= 1.6
