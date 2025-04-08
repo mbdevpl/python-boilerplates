@@ -50,6 +50,8 @@ class Sentry:
     traces_sample_rate: float = 1.0
     profiles_sample_rate: float = 1.0
 
+    tags: t.Dict[str, str] = {}
+
     @classmethod
     def _get_str_param(cls, param_name: str) -> t.Optional[str]:
         """Get a string parameter value by checking envvar first.
@@ -64,6 +66,19 @@ class Sentry:
         """Check if Sentry DSN parameter is set, thus if Sentry SDK should be initialised or not."""
         dsn = cls._get_str_param('dsn')
         return dsn is not None and len(dsn) > 0
+
+    @classmethod
+    def set_tags(cls, tags: t.Dict[str, str]):
+        """Set tags for the current scope."""
+        with sentry_sdk.configure_scope() as scope:
+            scope.set_tags(tags)
+
+    @classmethod
+    def remove_tags(cls, tags: t.List[str]):
+        """Remove tags from the current scope."""
+        with sentry_sdk.configure_scope() as scope:
+            for tag in tags:
+                scope.remove_tag(tag)
 
     @classmethod
     def init(cls, *args, **kwargs):
@@ -85,3 +100,5 @@ class Sentry:
             send_default_pii=cls.send_default_pii,
             default_integrations=cls.default_integrations,
             **kwargs)
+
+        cls.set_tags(cls.tags)
