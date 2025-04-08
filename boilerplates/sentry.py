@@ -41,6 +41,12 @@ class Sentry:
         sentry_sdk.integrations.threading.ThreadingIntegration()
     ]
 
+    debug: bool = False
+    attach_stacktrace: bool = False
+    shutdown_timeout: float = 2.0
+    send_default_pii: bool | None = None
+    default_integrations: bool = True
+
     traces_sample_rate: float = 1.0
     profiles_sample_rate: float = 1.0
 
@@ -67,9 +73,15 @@ class Sentry:
             return
         sentry_sdk.init(
             *args, dsn=cls._get_str_param('dsn'),
-            release=cls._get_str_param('release'), environment=cls._get_str_param('environment'),
+            release=cls._get_str_param('release'),
+            environment=cls._get_str_param('environment'),
             integrations=cls.integrations,
             traces_sample_rate=cls.traces_sample_rate,
             profiles_sample_rate=cls.profiles_sample_rate,
             enable_tracing=cls.profiles_sample_rate > 0,
+            debug=cls.debug,
+            attach_stacktrace=cls.attach_stacktrace,
+            shutdown_timeout=cls.shutdown_timeout,
+            send_default_pii=cls.send_default_pii,
+            default_integrations=cls.default_integrations,
             **kwargs)
