@@ -20,11 +20,15 @@ _LOG = logging.getLogger(__name__)
 class Sentry:
     """Sentry configuration.
 
-    For each parameter, the value is taken from the environment variable if it is set, otherwise
-    from the class attribute if it is set.
+    For parameters 'dsn', 'release' and 'environment', the value is taken
+    from the environment variable if it is set, otherwise from the class
+    attribute if it is set.
 
     For each parameter, the name of the environment variable name is 'SENTRY_'
     followed by the parameter name in upper case.
+
+    The class attribute tags, if set, will be added to the scope of the
+    current Sentry SDK.
     """
 
     dsn: str
