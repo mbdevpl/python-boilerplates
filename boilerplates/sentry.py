@@ -29,6 +29,21 @@ class Sentry:
 
     The class attribute tags, if set, will be added to the global scope of the
     current Sentry SDK.
+
+    :cvar dsn: sentry DSN (Data Source Name) used to identify the project in sentry
+    :cvar release: release version of your application
+    :cvar environment: environment name (e.g., 'production', 'staging', 'development')
+    :cvar integrations: list of sentry SDK integrations to enable (default: argv, excepthook,
+        logging, modules, pure_eval, stdlib, threading)
+    :cvar debug: enable debug mode for the sentry SDK (default: False)
+    :cvar attach_stacktrace: attach stacktraces to messages (default: False)
+    :cvar shutdown_timeout: time in seconds to wait for pending events to be sent before
+        shutdown (default: 2.0)
+    :cvar send_default_pii: send personally identifiable information by default (default: None)
+    :cvar default_integrations: enable sentry's default integrations (default: True)
+    :cvar traces_sample_rate: percentage of transactions to sample (0.0 to 1.0) (default: 1.0)
+    :cvar profiles_sample_rate: percentage of transactions to profile (0.0 to 1.0) (default: 1.0)
+    :cvar tags: dictionary of tags to apply to all events (default: {})
     """
 
     dsn: str
@@ -61,6 +76,9 @@ class Sentry:
         """Get a string parameter value by checking envvar first.
 
         Works only for 'dsn', 'release' or 'environment' parameters.
+
+        :param param_name: name of the parameter to get
+        :return: value of the parameter
         """
         assert param_name in ('dsn', 'release', 'environment'), param_name
         return os.environ.get(f'SENTRY_{param_name.upper()}', getattr(cls, param_name, None))
