@@ -20,11 +20,11 @@ _LOG = logging.getLogger(__name__)
 class Sentry:
     """Sentry configuration.
 
-    For parameters 'dsn', 'release' and 'environment', the value is taken
-    from the environment variable if it is set, otherwise from the class
-    attribute if it is set.
-
-    For each parameter, the name of the environment variable name is 'SENTRY_'
+    For parameters 'dsn', 'release', 'environment', 'default_integrations', 'debug',
+    'attach_stacktrace', 'shutdown_timeout', 'traces_sample_rate' and 'profiles_sample_rate'
+    the value is taken from the environment variable if it is set,
+    otherwise from the class attribute if it is set.
+    For those parameters, the expected name of the environment variable name is 'SENTRY_'
     followed by the parameter name in upper case.
 
     The class attribute tags, if set, will be added to the global scope of the
@@ -56,7 +56,7 @@ class Sentry:
     """
 
     default_integrations: bool = True
-    """If true, enable Sentry's default integrations besides the ones set via 'integrations'."""
+    """If True, enable Sentry's default integrations besides the ones set via 'integrations'."""
 
     debug: bool = False
     """If True, enable debug mode for the Sentry SDK."""
@@ -92,6 +92,21 @@ class Sentry:
         return os.environ.get(f'SENTRY_{param_name.upper()}', getattr(cls, param_name, None))
 
     @classmethod
+    def _get_float_param(cls, param_name: str) -> float:
+        assert param_name in (
+            'shutdown_timeout', 'traces_sample_rate', 'profiles_sample_rate'), param_name
+        if f'SENTRY_{param_name.upper()}' in os.environ:
+            return float(os.environ[f'SENTRY_{param_name.upper()}'])
+        return getattr(cls, param_name)
+
+    @classmethod
+    def _get_bool_param(cls, param_name: str) -> bool:
+        assert param_name in ('default_integrations', 'debug', 'attach_stacktrace'), param_name
+        if f'SENTRY_{param_name.upper()}' in os.environ:
+            return os.environ[f'SENTRY_{param_name.upper()}'].lower() in {'true', 'yes', 'on', '1'}
+        return getattr(cls, param_name)
+
+    @classmethod
     def is_dsn_set(cls) -> bool:
         """Check if Sentry DSN parameter is set, thus if Sentry SDK should be initialised or not."""
         dsn = cls._get_str_param('dsn')
@@ -108,14 +123,14 @@ class Sentry:
             release=cls._get_str_param('release'),
             environment=cls._get_str_param('environment'),
             integrations=cls.integrations,
-            traces_sample_rate=cls.traces_sample_rate,
-            profiles_sample_rate=cls.profiles_sample_rate,
-            enable_tracing=cls.profiles_sample_rate > 0,
-            debug=cls.debug,
-            attach_stacktrace=cls.attach_stacktrace,
-            shutdown_timeout=cls.shutdown_timeout,
+            traces_sample_rate=cls._get_float_param('traces_sample_rate'),
+            profiles_sample_rate=cls._get_float_param('profiles_sample_rate'),
+            enable_tracing=cls._get_float_param('profiles_sample_rate') > 0,
+            debug=cls._get_bool_param('debug'),
+            attach_stacktrace=cls._get_bool_param('attach_stacktrace'),
+            shutdown_timeout=cls._get_float_param('shutdown_timeout'),
             send_default_pii=cls.send_default_pii,
-            default_integrations=cls.default_integrations,
+            default_integrations=cls._get_bool_param('default_integrations'),
             **kwargs)
 
         sentry_sdk.set_tags(cls.tags)
