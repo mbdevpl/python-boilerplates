@@ -29,26 +29,17 @@ class Sentry:
 
     The class attribute tags, if set, will be added to the global scope of the
     current Sentry SDK.
-
-    :cvar dsn: sentry DSN (Data Source Name) used to identify the project in sentry
-    :cvar release: release version of your application
-    :cvar environment: environment name (e.g., 'production', 'staging', 'development')
-    :cvar integrations: list of sentry SDK integrations to enable (default: argv, excepthook,
-        logging, modules, pure_eval, stdlib, threading)
-    :cvar debug: enable debug mode for the sentry SDK (default: False)
-    :cvar attach_stacktrace: attach stacktraces to messages (default: False)
-    :cvar shutdown_timeout: time in seconds to wait for pending events to be sent before
-        shutdown (default: 2.0)
-    :cvar send_default_pii: send personally identifiable information by default (default: None)
-    :cvar default_integrations: enable sentry's default integrations (default: True)
-    :cvar traces_sample_rate: percentage of transactions to sample (0.0 to 1.0) (default: 1.0)
-    :cvar profiles_sample_rate: percentage of transactions to profile (0.0 to 1.0) (default: 1.0)
-    :cvar tags: dictionary of tags to apply to all events (default: {})
     """
 
     dsn: str
+    """Sentry DSN (Data Source Name) used to identify the project in Sentry."""
+
     release: str
+    """Release version of your application."""
+
     environment: str
+    """Environment name (e.g., 'production', 'staging', 'development')."""
+
     integrations: t.List[sentry_sdk.integrations.Integration] = [
         sentry_sdk.integrations.argv.ArgvIntegration(),
         sentry_sdk.integrations.excepthook.ExcepthookIntegration(always_run=False),
@@ -59,17 +50,34 @@ class Sentry:
         sentry_sdk.integrations.stdlib.StdlibIntegration(),
         sentry_sdk.integrations.threading.ThreadingIntegration()
     ]
+    """Sentry SDK integrations to enable.
+
+    To configure integrations that are enabled by default, also add them to this list.
+    """
+
+    default_integrations: bool = True
+    """If true, enable Sentry's default integrations besides the ones set via 'integrations'."""
 
     debug: bool = False
+    """If True, enable debug mode for the Sentry SDK."""
+
     attach_stacktrace: bool = False
+    """If True, attach stacktraces to messages."""
+
     shutdown_timeout: float = 2.0
-    send_default_pii: bool | None = None
-    default_integrations: bool = True
+    """Time in seconds to wait for pending events to be sent before shutdown."""
+
+    send_default_pii: bool | None = False
+    """If True, send personally identifiable information."""
 
     traces_sample_rate: float = 1.0
+    """Ratio of transactions to sample (0.0 to 1.0)."""
+
     profiles_sample_rate: float = 1.0
+    """Ratio of transactions to profile (0.0 to 1.0)."""
 
     tags: t.Dict[str, str] = {}
+    """Tags to be added to all events."""
 
     @classmethod
     def _get_str_param(cls, param_name: str) -> t.Optional[str]:
