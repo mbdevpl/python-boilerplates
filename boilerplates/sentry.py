@@ -67,7 +67,7 @@ class Sentry:
     shutdown_timeout: float = 2.0
     """Time in seconds to wait for pending events to be sent before shutdown."""
 
-    send_default_pii: bool | None = False
+    send_default_pii: t.Optional[bool] = False
     """If True, send personally identifiable information."""
 
     traces_sample_rate: float = 1.0
