@@ -1,6 +1,8 @@
 """Test definitions for package building."""
 
+import contextlib
 import importlib
+import io
 import logging
 import os
 import pathlib
@@ -100,43 +102,49 @@ class PackagingTests(unittest.TestCase):
         expanded_args = expand_args_by_globbing_items('*.py', cwd=pathlib.Path(self.pkg_name))
         self.assertIn('__init__.py', expanded_args)
 
+    def test_setup_help(self):
+        stdout_buffer = io.StringIO()
+        with contextlib.redirect_stdout(stdout_buffer):
+            run_module('setup', '--help')
+        self.assertIn('usage: setup.py', stdout_buffer.getvalue())
+
     def test_build(self):
         run_program(sys.executable, '-m', 'build')
         self.assertTrue(os.path.isdir('dist'))
 
-    def test_build_binary(self):
-        run_module('setup', 'bdist')
+    def test_build_wheel(self):
+        run_module('build', '--wheel')
         self.assertTrue(os.path.isdir('dist'))
 
-    def test_build_wheel(self):
-        run_module('setup', 'bdist_wheel')
+    def test_build_wheel_no_isolation(self):
+        run_module('build', '--wheel', '--no-isolation')
         self.assertTrue(os.path.isdir('dist'))
 
     def test_build_source(self):
-        run_module('setup', 'sdist', '--formats=gztar,zip')
+        run_module('build', '--sdist')
+        self.assertTrue(os.path.isdir('dist'))
+
+    def test_build_source_no_isolation(self):
+        run_module('build', '--sdist', '--no-isolation')
         self.assertTrue(os.path.isdir('dist'))
 
     def test_install_code(self):
         with tempfile.TemporaryDirectory() as temporary_folder:
-            run_pip('install', '--prefix', temporary_folder, '.')
+            run_pip('install', '--ignore-installed', '--prefix', temporary_folder, '.')
         self.assertFalse(pathlib.Path(temporary_folder).exists())
 
     def test_install_source_tar(self):
         with tempfile.TemporaryDirectory() as temporary_folder:
             run_pip(
-                'install', '--prefix', temporary_folder, f'dist/*-{self.version}.tar.gz', glob=True)
-        self.assertFalse(pathlib.Path(temporary_folder).exists())
-
-    def test_install_source_zip(self):
-        with tempfile.TemporaryDirectory() as temporary_folder:
-            run_pip(
-                'install', '--prefix', temporary_folder, f'dist/*-{self.version}.zip', glob=True)
+                'install', '--ignore-installed', '--prefix', temporary_folder,
+                f'dist/*-{self.version}.tar.gz', glob=True)
         self.assertFalse(pathlib.Path(temporary_folder).exists())
 
     def test_install_wheel(self):
         with tempfile.TemporaryDirectory() as temporary_folder:
             run_pip(
-                'install', '--prefix', temporary_folder, f'dist/*-{self.version}-*.whl', glob=True)
+                'install', '--ignore-installed', '--prefix', temporary_folder,
+                f'dist/*-{self.version}-*.whl', glob=True)
         self.assertFalse(pathlib.Path(temporary_folder).exists())
 
     def test_pip_error(self):

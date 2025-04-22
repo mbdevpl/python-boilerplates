@@ -37,8 +37,7 @@ WORKDIR /home/user/python-boilerplates
 COPY --chown=${USER_ID}:${GROUP_ID} requirements*.txt ./
 
 RUN set -Eeuxo pipefail && \
-  pip3 install --no-cache-dir -r requirements_ci.txt && \
-  pip3 uninstall -y boilerplates
+  pip3 install --no-cache-dir -r requirements_ci.txt
 
 # prepare python-boilerplates for testing
 
