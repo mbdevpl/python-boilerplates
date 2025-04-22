@@ -20,6 +20,9 @@ DEFAULT_URL = 'https://github.com/mbdevpl'
 DEFAULT_AUTHOR = 'Mateusz Bysiek'
 DEFAULT_AUTHOR_EMAIL = 'mateusz.bysiek@gmail.com'
 DEFAULT_LICENSE_STR = 'Apache-2.0'
+DEFAULT_LICENSE_FILE_PATTENS = [
+   'CONTRIBUTORS', 'CONTRIBUTORS.*', 'LICENSE', 'LICENSE.*', 'NOTICE', 'NOTICE.*'
+]
 
 TEST_PACKAGES = [
     'test',
@@ -262,6 +265,8 @@ class Package:
     maintainer: str
     maintainer_email: str
     license_str: str = DEFAULT_LICENSE_STR
+    license_file_patterns: t.Sequence[str] = DEFAULT_LICENSE_FILE_PATTENS
+    _existing_license_file_patterns: t.Optional[t.Sequence[str]] = None
 
     classifiers: t.List[str] = []
     """List of trove classifiers for the package.
@@ -345,6 +350,21 @@ class Package:
             cls.install_requires = parse_requirements()
         if cls.python_requires is None:
             cls.python_requires = find_required_python_version(cls.classifiers)
+        cls._prepare_existing_license_file_patterns()
+
+    @classmethod
+    def _prepare_existing_license_file_patterns(cls):
+        if cls._existing_license_file_patterns is not None:
+            return
+        cls._existing_license_file_patterns = []
+        for pattern in cls.license_file_patterns:
+            results = list(pathlib.Path().resolve().glob(pattern))
+            _LOG.debug(
+                'found %i files matching pattern "%s" in current working directory',
+                len(results), pattern)
+            if len(results) == 0:
+                continue
+            cls._existing_license_file_patterns.append(pattern)
 
     @classmethod
     def setup(cls) -> None:
@@ -358,7 +378,8 @@ class Package:
             author=cls.author, author_email=cls.author_email,
             maintainer=cls.maintainer,
             maintainer_email=cls.maintainer_email,
-            license=cls.license_str, classifiers=cls.classifiers, keywords=cls.keywords,
+            license=cls.license_str, license_files=cls._existing_license_file_patterns,
+            classifiers=cls.classifiers, keywords=cls.keywords,
             packages=cls.packages, package_dir={'': cls.root_directory},
             include_package_data=True,
             package_data=cls.package_data, exclude_package_data=cls.exclude_package_data,
