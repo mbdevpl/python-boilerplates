@@ -378,7 +378,7 @@ class Package:
             author=cls.author, author_email=cls.author_email,
             maintainer=cls.maintainer,
             maintainer_email=cls.maintainer_email,
-            license=cls.license_str, license_files=cls._existing_license_file_patterns,
+            license_expression=cls.license_str, license_files=cls._existing_license_file_patterns,
             classifiers=cls.classifiers, keywords=cls.keywords,
             packages=cls.packages, package_dir={'': cls.root_directory},
             include_package_data=True,
