@@ -103,8 +103,7 @@ pipeline {
           set -Eeuxo pipefail
           python3 -m twine upload \
             dist/${PYTHON_PACKAGE}-${VERSION}-py3-none-any.whl \
-            dist/${PYTHON_PACKAGE}-${VERSION}.tar.gz \
-            dist/${PYTHON_PACKAGE}-${VERSION}.zip
+            dist/${PYTHON_PACKAGE}-${VERSION}.tar.gz
         """
       }
     }
@@ -120,8 +119,7 @@ pipeline {
         script {
           githubUtils.createRelease([
             "dist/${PYTHON_PACKAGE}-${VERSION}-py3-none-any.whl",
-            "dist/${PYTHON_PACKAGE}-${VERSION}.tar.gz",
-            "dist/${PYTHON_PACKAGE}-${VERSION}.zip"
+            "dist/${PYTHON_PACKAGE}-${VERSION}.tar.gz"
             ])
         }
       }
