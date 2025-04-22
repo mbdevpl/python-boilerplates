@@ -231,3 +231,16 @@ class PackageTests(unittest.TestCase):
         del Package.version
         with self.assertRaises(FileNotFoundError):
             Package.prepare()
+
+    def test_prepare_license_files(self):
+        # pylint: disable = protected-access
+
+        class Package(boilerplates.setup.Package):
+            name = 'package name'
+            version = '0.1.0'
+
+        self.assertIsNone(Package._existing_license_file_patterns)
+        Package.prepare()
+        self.assertIsNotNone(Package._existing_license_file_patterns)
+        assert Package._existing_license_file_patterns is not None
+        self.assertGreater(len(Package._existing_license_file_patterns), 0)
