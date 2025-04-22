@@ -41,6 +41,8 @@ class Package(boilerplates.setup.Package):
     version = VERSION
     description = 'Various boilerplates used in almost all of my Python packages.'
     url = 'https://github.com/mbdevpl/python-boilerplates'
+    author = 'Mateusz Bysiek, Stian Hanssen'
+    maintainer = 'Mateusz Bysiek'
     classifiers = [
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
