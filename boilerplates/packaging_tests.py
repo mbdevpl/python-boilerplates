@@ -130,19 +130,21 @@ class PackagingTests(unittest.TestCase):
 
     def test_install_code(self):
         with tempfile.TemporaryDirectory() as temporary_folder:
-            run_pip('install', '--prefix', temporary_folder, '.')
+            run_pip('install', '--ignore-installed', '--prefix', temporary_folder, '.')
         self.assertFalse(pathlib.Path(temporary_folder).exists())
 
     def test_install_source_tar(self):
         with tempfile.TemporaryDirectory() as temporary_folder:
             run_pip(
-                'install', '--prefix', temporary_folder, f'dist/*-{self.version}.tar.gz', glob=True)
+                'install', '--ignore-installed', '--prefix', temporary_folder,
+                f'dist/*-{self.version}.tar.gz', glob=True)
         self.assertFalse(pathlib.Path(temporary_folder).exists())
 
     def test_install_wheel(self):
         with tempfile.TemporaryDirectory() as temporary_folder:
             run_pip(
-                'install', '--prefix', temporary_folder, f'dist/*-{self.version}-*.whl', glob=True)
+                'install', '--ignore-installed', '--prefix', temporary_folder,
+                f'dist/*-{self.version}-*.whl', glob=True)
         self.assertFalse(pathlib.Path(temporary_folder).exists())
 
     def test_pip_error(self):
