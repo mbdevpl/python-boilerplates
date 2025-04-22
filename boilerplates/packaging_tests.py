@@ -1,6 +1,8 @@
 """Test definitions for package building."""
 
+import contextlib
 import importlib
+import io
 import logging
 import os
 import pathlib
@@ -101,7 +103,10 @@ class PackagingTests(unittest.TestCase):
         self.assertIn('__init__.py', expanded_args)
 
     def test_setup_help(self):
-        run_module('setup', '--help')
+        stdout_buffer = io.StringIO()
+        with contextlib.redirect_stdout(stdout_buffer):
+            run_module('setup', '--help')
+        self.assertIn('usage: setup.py', stdout_buffer.getvalue())
 
     def test_build(self):
         run_program(sys.executable, '-m', 'build')
