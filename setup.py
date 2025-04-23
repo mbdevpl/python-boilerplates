@@ -19,7 +19,7 @@ def prepare_local_version_query():
         repo_path = pathlib.Path(temporary_path)
         print(f'ensuring version-query repository is available locally at "{repo_path}"')
         repo = git.Repo.clone_from('https://github.com/mbdevpl/version-query', repo_path)
-        repo.git.checkout('v1.6.2')
+        repo.git.checkout('v1.6.3')
         print(f'ensuring version_query module is available locally at "{module_path}"')
         shutil.copytree(repo_path / 'version_query', module_path, dirs_exist_ok=True)
     for filename in ('_version.py', '__main__.py', 'main.py'):

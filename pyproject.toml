@@ -1,7 +1,7 @@
 [build-system]
 build-backend = 'setuptools.build_meta'
 requires = [
-    'boilerplates[setup] ~= 1.1, >= 1.1.4',
+    'boilerplates[setup] ~= 1.2',
     'docutils ~= 0.20',
     'GitPython ~= 3.1',
     'packaging >= 24.0',
