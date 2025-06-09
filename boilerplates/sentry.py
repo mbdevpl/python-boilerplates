@@ -113,7 +113,7 @@ class Sentry:
         return dsn is not None and len(dsn) > 0
 
     @classmethod
-    def init(cls, *args, **kwargs):
+    def init(cls, *args, **kwargs) -> None:
         """Initialise Sentry SDK."""
         if not cls.is_dsn_set():
             _LOG.info('Sentry DSN is not set, skipping Sentry SDK initialisation')
