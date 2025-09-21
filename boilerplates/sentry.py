@@ -118,8 +118,12 @@ class Sentry:
         if not cls.is_dsn_set():
             _LOG.info('Sentry DSN is not set, skipping Sentry SDK initialisation')
             return
+        assert not args, \
+            'positional arguments are not supported, instead please use class attributes,' \
+            ' environment variables and for parameters which cannot be set via either' \
+            ' please use keyword arguments'
         sentry_sdk.init(
-            *args, dsn=cls._get_str_param('dsn'),
+            dsn=cls._get_str_param('dsn'),
             release=cls._get_str_param('release'),
             environment=cls._get_str_param('environment'),
             integrations=cls.integrations,
