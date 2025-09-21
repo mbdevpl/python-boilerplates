@@ -83,7 +83,15 @@ def get_package_folder_name():
 @unittest.skipUnless(os.environ.get('TEST_PACKAGING') or os.environ.get('CI'),
                      'skipping packaging tests for actual package')
 class PackagingTests(unittest.TestCase):
-    """Test if the boilerplate can actually create a valid package."""
+    """Test if the boilerplate can actually create a valid package.
+
+    Note:
+
+    Tests that run setup script directly fail due to conflict between distutils used internally
+    by setuptools and distutils used internally by pip. For more information, see:
+    - https://github.com/pypa/setuptools/issues/3297
+    - https://github.com/pypa/pip/issues/8761
+    """
 
     pkg_name: t.Optional[str] = None
     version: t.Optional[str] = None
@@ -102,6 +110,7 @@ class PackagingTests(unittest.TestCase):
         expanded_args = expand_args_by_globbing_items('*.py', cwd=pathlib.Path(self.pkg_name))
         self.assertIn('__init__.py', expanded_args)
 
+    @unittest.skipIf(sys.version_info < (3, 12), 'requires Python 3.12+')
     def test_setup_help(self):
         stdout_buffer = io.StringIO()
         with contextlib.redirect_stdout(stdout_buffer):
@@ -151,6 +160,7 @@ class PackagingTests(unittest.TestCase):
         with self.assertRaises(AssertionError):
             run_pip('wrong_pip_command')
 
+    @unittest.skipIf(sys.version_info < (3, 12), 'requires Python 3.12+')
     def test_setup_do_nothing_or_error(self):
         run_module('setup', 'wrong_setup_command', run_name='__not_main__')
         with self.assertRaises(SystemExit):
