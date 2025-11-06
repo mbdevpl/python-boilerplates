@@ -1,5 +1,6 @@
 """Unit tests for logging boilerplate."""
 
+import contextlib
 import inspect
 import logging
 import os
@@ -103,7 +104,13 @@ class UtilityTests(unittest.TestCase):
             verbosity = boilerplates.logging.unittest_verbosity()
         self.assertIsNone(verbosity)
 
-    def test_stream_to_call(self):
+    def test_stream_to_call_contextlib(self):
+        log = logging.getLogger(f'{__name__}.test_stream_to_call')
+        with contextlib.redirect_stdout(boilerplates.logging.StreamToCall(log.info)):
+            with self.assertLogs(logger=log, level='INFO'):
+                print('test output')
+
+    def test_stream_to_call_direct(self):
         log = logging.getLogger(f'{__name__}.test_stream_to_call')
         stream = boilerplates.logging.StreamToCall(log.info)
         with self.assertLogs(logger=log, level='INFO'):

@@ -218,12 +218,24 @@ def unittest_verbosity() -> t.Optional[int]:
     return None
 
 
-class StreamToCall:
+class StreamToCall(t.IO[str]):
     """Redirect stream writes to a function call.
 
     Enable using logging instances as a file-like objects.
     Given a called_function, convert write(text) calls to called_function(text) calls.
     For example: StreamToCall(logging.warning) will redirect all writes to logging.warning().
+
+    Example usage:
+
+    logger = logging.getLogger(__name__)
+    with contextlib.redirect_stdout(boilerplates.logging.StreamToCall(logger.info)):
+        print('this will be logged at INFO level')
+
+    Another example:
+
+    logger = logging.getLogger(__name__)
+    stream = boilerplates.logging.StreamToCall(logger.debug)
+    print('this will be logged at DEBUG level', file=stream)
     """
 
     def __init__(self, called_function: collections.abc.Callable):
@@ -235,6 +247,7 @@ class StreamToCall:
         while message.endswith('\r') or message.endswith('\n'):
             message = message[:-1]
         self._function(message, *args)
+        return len(message)
 
     def flush(self):
         """Flush can be a no-op."""
