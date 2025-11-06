@@ -149,7 +149,7 @@ def find_required_python_version(
 def parse_rst(text: str) -> docutils.nodes.document:
     """Parse text assuming it's an RST markup."""
     parser = docutils.parsers.rst.Parser()
-    settings = docutils.frontend.get_default_settings(docutils.parsers.rst.Parser)
+    settings = docutils.frontend.get_default_settings(parser)
     document = docutils.utils.new_document('<rst-doc>', settings=settings)
     parser.parse(text, document)
     return document
