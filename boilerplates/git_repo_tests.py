@@ -3,6 +3,7 @@
 import logging
 import pathlib
 import tempfile
+import typing as t
 import unittest
 
 import git
@@ -13,8 +14,8 @@ _LOG = logging.getLogger(__name__)
 class GitRepoTests(unittest.TestCase):
     """Provide several utility properties and methods named repo_* and git_*."""
 
-    repo: git.Repo | None = None
-    repo_path: pathlib.Path | None = None
+    repo: t.Optional[git.Repo] = None
+    repo_path: t.Optional[pathlib.Path] = None
 
     def setUp(self):
         self._tmpdir = tempfile.TemporaryDirectory()  # pylint: disable = consider-using-with
