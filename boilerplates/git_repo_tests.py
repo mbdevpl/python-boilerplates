@@ -3,6 +3,7 @@
 import logging
 import pathlib
 import tempfile
+import typing as t
 import unittest
 
 import git
@@ -13,8 +14,8 @@ _LOG = logging.getLogger(__name__)
 class GitRepoTests(unittest.TestCase):
     """Provide several utility properties and methods named repo_* and git_*."""
 
-    repo = None  # type: git.Repo
-    repo_path = None  # type: pathlib.Path
+    repo: t.Optional[git.Repo] = None
+    repo_path: t.Optional[pathlib.Path] = None
 
     def setUp(self):
         self._tmpdir = tempfile.TemporaryDirectory()  # pylint: disable = consider-using-with
@@ -36,12 +37,13 @@ class GitRepoTests(unittest.TestCase):
 
     @property
     def repo_head_hexsha(self) -> str:
+        self.assertIsInstance(self.repo, git.Repo)
+        assert isinstance(self.repo, git.Repo), type(self.repo)
         return self.repo.head.commit.hexsha[:8]
 
     def git_init(self) -> git.Repo:
         """Initialize a git repository in the temporary folder."""
         self.repo = git.Repo.init(str(self.repo_path))
-        self.assertIsInstance(self.repo, git.Repo)
         self.repo.git.config('user.email', 'you@example.com')
         self.repo.git.config('user.name', 'Your Name')
         return self.repo
@@ -59,6 +61,8 @@ class GitRepoTests(unittest.TestCase):
         with tempfile.NamedTemporaryFile('w', dir=str(self.repo_path), delete=False) as repo_file:
             repo_file.write('spam spam lovely spam\n')
             path = pathlib.Path(repo_file.name)
+        self.assertIsInstance(self.repo, git.Repo)
+        assert isinstance(self.repo, git.Repo), type(self.repo)
         self.repo.index.add([path.name])
         self.repo.index.commit(f'created file {path}')
         _LOG.debug('commited file %s as %s', path, self.repo_head_hexsha)
@@ -68,6 +72,7 @@ class GitRepoTests(unittest.TestCase):
     def git_modify_file(self, path: pathlib.Path, add: bool = False, commit: bool = False) -> None:
         """Modify an existing file."""
         self.assertIsInstance(self.repo, git.Repo)
+        assert isinstance(self.repo, git.Repo), type(self.repo)
         self.assertIsInstance(path, pathlib.Path)
         self.assertTrue(path.is_file())
         with path.open('a') as repo_file:
