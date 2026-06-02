@@ -290,7 +290,7 @@ class Package:
     install_requires: t.Optional[t.List[str]] = None
     """If None, determined using requirements.txt."""
 
-    extras_require: t.Mapping[str, t.List[str]] = {}
+    extras_require: t.Dict[str, t.List[str]] = {}
     """A dictionary containing entries of type 'some_feature': ['requirement1', 'requirement2']."""
 
     python_requires: t.Optional[str] = None
@@ -383,6 +383,7 @@ class Package:
             packages=cls.packages, package_dir={'': cls.root_directory},
             include_package_data=True,
             package_data=cls.package_data, exclude_package_data=cls.exclude_package_data,
-            install_requires=cls.install_requires, extras_require=cls.extras_require,
+            install_requires=[] if cls.install_requires is None else cls.install_requires,
+            extras_require=cls.extras_require,
             python_requires=cls.python_requires,
             entry_points=cls.entry_points)
