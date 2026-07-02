@@ -116,21 +116,21 @@ class Logging:
         return normalize_path(LOGS_PATH.joinpath(cls.directory, filename))
 
     @classmethod
-    def _create_logs_folder(cls):
+    def _create_logs_folder(cls) -> None:
         assert cls.directory is not None
         logs_path = normalize_path(LOGS_PATH.joinpath(cls.directory))
         assert logs_path.parent.exists(), logs_path.parent
         logs_path.mkdir(parents=False, exist_ok=True)
 
     @classmethod
-    def _set_default_logging_levels(cls):
+    def _set_default_logging_levels(cls) -> None:
         logging.getLogger().setLevel(cls.level_other)
         for package in getattr(cls, 'packages', []):
             logging.getLogger(package).setLevel(cls.level_package)
         logging.getLogger('test').setLevel(cls.level_test)
 
     @classmethod
-    def configure_basic(cls):
+    def configure_basic(cls) -> None:
         """Configure basic logging for an application.
 
         Basic logging is logging to the console with colored logging, or logging to a single file.
@@ -150,7 +150,7 @@ class Logging:
         cls._set_default_logging_levels()
 
     @classmethod
-    def _configure_basic_console(cls):
+    def _configure_basic_console(cls) -> None:
         """Configure basic logging to the console with colored logging."""
         handler = logging.StreamHandler()
         handler.setFormatter(colorlog.ColoredFormatter(LOG_FORMAT_BRIEF_COLOURED, style='{'))
@@ -160,9 +160,9 @@ class Logging:
             handlers=[handler])
 
     @classmethod
-    def configure(cls):
+    def configure(cls) -> None:
         """Configure logging for an application."""
-        logging_config = {
+        logging_config: dict[str, t.Any] = {
             'formatters': {
                 'console': {
                     '()': 'colorlog.ColoredFormatter',
