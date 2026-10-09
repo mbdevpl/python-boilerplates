@@ -68,8 +68,9 @@ def add_verbosity_group(parser: argparse.ArgumentParser) -> 'argparse._MutuallyE
     verbosity_arg = verbosity_group.add_argument(
         '--verbosity', metavar='LEVEL', type=int, default=_VERBOSITY_DEFAULT,
         help=f'set verbosity level explicitly (normally from {_VERBOSITY_MIN} to {_VERBOSITY_MAX})')
-    verbosity_arg.completer = argcomplete.completers.ChoicesCompleter(  # type: ignore
-        choices=list(range(_VERBOSITY_MIN, _VERBOSITY_MAX)))
+    verbosity_completer = argcomplete.completers.ChoicesCompleter(
+        choices={str(_): str(_) for _ in range(_VERBOSITY_MIN, _VERBOSITY_MAX)})
+    verbosity_arg.completer = verbosity_completer  # type: ignore
     return verbosity_group
 
 
