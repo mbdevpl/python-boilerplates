@@ -9,5 +9,4 @@ pylint ~= 4.1
 twine ~= 7.0
 types-docutils ~= 0.20
 types-setuptools >= 70.0
-types-ratelimit ~= 2.2
 version-query ~= 1.6
