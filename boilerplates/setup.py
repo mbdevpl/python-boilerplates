@@ -234,10 +234,10 @@ class Package:
     name: str
     """Package name."""
 
-    version: str
+    version: str | None
     """Package version as string.
 
-    If None, it will be obtained from "package_name._version.VERSION" variable.
+    If not set, it will be obtained from "package_name._version.VERSION" variable.
     """
 
     description: str
