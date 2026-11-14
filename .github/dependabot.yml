@@ -3,12 +3,16 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: monthly
+      interval: weekly
+    cooldown:
+      default-days: 7
   - package-ecosystem: pip
     directory: /
     schedule:
-      interval: monthly
-    versioning-strategy: increase-if-necessary
+      interval: weekly
+    cooldown:
+      default-days: 7
+    versioning-strategy: increase
     ignore:
       - dependency-name: >-
           *
