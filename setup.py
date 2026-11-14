@@ -10,10 +10,9 @@ import git
 _HERE = pathlib.Path(__file__).parent
 
 
-def prepare_local_version_query():
+def prepare_local_version_query() -> None:
     """Prepare local copy of version_query package to avoid circular dependency between packages."""
-    here = pathlib.Path(__file__).parent
-    module_path = here / 'boilerplates' / 'bundled_version_query'
+    module_path = _HERE / 'boilerplates' / 'bundled_version_query'
     if module_path.exists():
         return
     with tempfile.TemporaryDirectory() as temporary_path:
