@@ -1,9 +1,3 @@
-.. role:: python(code)
-    :language: python
-
-.. role:: toml(code)
-    :language: toml
-
 ===================
 Python boilerplates
 ===================
