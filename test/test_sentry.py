@@ -1,7 +1,6 @@
 """Unit tests for Sentry boilerplate."""
 
 import logging
-import sys
 import unittest
 import unittest.mock
 
