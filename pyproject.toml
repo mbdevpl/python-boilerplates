@@ -5,8 +5,8 @@ requires = [
     'GitPython~=3.1',
     'packaging~=26.3',
     'Pygments~=2.21',
-    'semver~=3.1',
-    'setuptools~=84.2'
+    'semver~=3.0',
+    'setuptools>=79.0'
 ]
 
 [tool.flake8]
