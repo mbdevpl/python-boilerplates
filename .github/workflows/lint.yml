@@ -46,4 +46,5 @@ jobs:
         with:
           python-version: '3.14'
       - run: pip install -r requirements_ci.txt
+      - run: python -m build
       - run: python -m pylint --ignore-paths=.venv,build .
