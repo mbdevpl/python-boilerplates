@@ -26,7 +26,6 @@ class SentryTests(unittest.TestCase):
         self.assertEqual(len(context.output), 1, msg=context.output)
         self.assertIn('skipping Sentry SDK initialisation', context.output[0])
 
-    @unittest.skipUnless(sys.version_info >= (3, 10), 'this test requires Python 3.10')
     def test_init_with_dsn(self):
         class Sentry(boilerplates.sentry.Sentry):
             dsn = 'https://spam@ham.ingest.sentry.io/eggs'
@@ -35,7 +34,6 @@ class SentryTests(unittest.TestCase):
             Sentry.init()
         sentry_sdk_init_mock.assert_called_once()
 
-    @unittest.skipUnless(sys.version_info >= (3, 10), 'this test requires Python 3.10')
     def test_init_with_envvar(self):
         class Sentry(boilerplates.sentry.Sentry):
             pass
@@ -46,7 +44,6 @@ class SentryTests(unittest.TestCase):
             Sentry.init()
         sentry_sdk_init_mock.assert_called_once()
 
-    @unittest.skipUnless(sys.version_info >= (3, 10), 'this test requires Python 3.10')
     def test_configure_with_envvars(self):
         class Sentry(boilerplates.sentry.Sentry):
             dsn = 'https://spam@ham.ingest.sentry.io/eggs'
