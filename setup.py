@@ -2,11 +2,12 @@
 
 import pathlib
 import shutil
+import sys
 import tempfile
 
 import git
 
-import boilerplates.setup
+_HERE = pathlib.Path(__file__).parent
 
 
 def prepare_local_version_query():
@@ -26,7 +27,17 @@ def prepare_local_version_query():
         module_path.joinpath(filename).unlink()
 
 
-prepare_local_version_query()
+def allow_local_boilerplates() -> None:
+    """Add folder of this setup.py to Python path to use packaged code when building the package."""
+    sys.path.insert(0, str(_HERE))
+
+
+if __name__ == '__main__':
+    prepare_local_version_query()
+    allow_local_boilerplates()
+
+# pylint: disable = wrong-import-position
+import boilerplates.setup  # noqa: E402
 
 # pylint: disable = wrong-import-position
 from boilerplates.bundled_version_query import predict_version_str  # noqa: E402
