@@ -14,7 +14,7 @@ jobs:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
         with:
-          python-version: '3.14'
+          python-version: '3.15'
       - run: pip install -r requirements_ci.txt
       - run: python -m flake518 --exclude .venv,build --verbose
   lint-mypy:
@@ -24,7 +24,7 @@ jobs:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
         with:
-          python-version: '3.14'
+          python-version: '3.15'
       - run: pip install -r requirements_ci.txt
       - run: python -m mypy --exclude .venv --exclude build .
   lint-pydocstyle:
@@ -34,7 +34,7 @@ jobs:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
         with:
-          python-version: '3.14'
+          python-version: '3.15'
       - run: pip install -r requirements_ci.txt
       - run: python -m pydocstyle --verbose .
   lint-pylint:
@@ -44,7 +44,7 @@ jobs:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
         with:
-          python-version: '3.14'
+          python-version: '3.15'
       - run: pip install -r requirements_ci.txt
       - run: python -m build
       - run: python -m pylint --ignore-paths=.venv,build .
