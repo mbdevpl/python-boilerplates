@@ -1,0 +1,50 @@
+name: lint
+
+on:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  lint-flake518:
+    name: flake518
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.14'
+      - run: pip install -r requirements_ci.txt
+      - run: python -m flake518 --exclude .venv,build --verbose
+  lint-mypy:
+    name: mypy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.14'
+      - run: pip install -r requirements_ci.txt
+      - run: python -m mypy --exclude .venv --exclude build .
+  lint-pydocstyle:
+    name: pydocstyle
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.14'
+      - run: pip install -r requirements_ci.txt
+      - run: python -m pydocstyle --verbose .
+  lint-pylint:
+    name: pylint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.14'
+      - run: pip install -r requirements_ci.txt
+      - run: python -m build
+      - run: python -m pylint --ignore-paths=.venv,build .

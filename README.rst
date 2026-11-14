@@ -1,9 +1,3 @@
-.. role:: python(code)
-    :language: python
-
-.. role:: toml(code)
-    :language: toml
-
 ===================
 Python boilerplates
 ===================
@@ -14,7 +8,7 @@ Various boilerplates used in almost all of my Python packages.
     :target: https://pypi.org/project/boilerplates
     :alt: package version from PyPI
 
-.. image:: https://github.com/mbdevpl/python-boilerplates/actions/workflows/python.yml/badge.svg?branch=main
+.. image:: https://github.com/mbdevpl/python-boilerplates/actions/workflows/test.yml/badge.svg?branch=main
     :target: https://github.com/mbdevpl/python-boilerplates/actions
     :alt: build status from GitHub
 
