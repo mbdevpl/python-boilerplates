@@ -84,6 +84,15 @@ class UnitTests(unittest.TestCase):
         self.assertTrue(all(isinstance(result, str) for result in results), msg=results)
         self.assertIn('example-package', results)
 
+    def test_requirements_relative_path(self):
+        cwd = pathlib.Path().resolve()
+        relative_examples_folder = EXAMPLES_FOLDER.relative_to(cwd)
+        results = boilerplates.setup.parse_requirements(
+            str(relative_examples_folder / 'example_reqs.txt'))
+        self.assertIsInstance(results, list)
+        self.assertTrue(all(isinstance(result, str) for result in results), msg=results)
+        self.assertIn('example-package', results)
+
     def test_requirements_nested(self):
         results = boilerplates.setup.parse_requirements(
             str(EXAMPLES_FOLDER / 'example_reqs_more.txt'))
