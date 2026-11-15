@@ -61,7 +61,7 @@ def find_packages(root_directory: str = '.') -> t.List[str]:
 
 
 def parse_requirements(
-        requirements_path: str = 'requirements.txt') -> t.List[str]:
+        requirements_path: str | pathlib.Path = 'requirements.txt') -> t.List[str]:
     """Read contents of requirements.txt file and return data from its relevant lines.
 
     Only non-empty and non-comment lines are relevant.
@@ -70,13 +70,19 @@ def parse_requirements(
     :return: list of requirements
     """
     requirements = []
-    with pathlib.Path().resolve().joinpath(requirements_path).open(
-            encoding='utf-8') as requirements_file:
+    if isinstance(requirements_path, str):
+        requirements_path = pathlib.Path(requirements_path)
+    if requirements_path.is_absolute():
+        absolute_requirements_path = requirements_path.resolve()
+    else:
+        absolute_requirements_path = pathlib.Path().resolve().joinpath(requirements_path)
+    with absolute_requirements_path.open(encoding='utf-8') as requirements_file:
         for requirement in [line.strip() for line in requirements_file.read().splitlines()]:
             if not requirement or requirement.startswith('#'):
                 continue
             if requirement.startswith('-r'):
-                requirements.extend(parse_requirements(requirement[2:].strip()))
+                requirements.extend(parse_requirements(
+                    absolute_requirements_path.parent / requirement[2:].strip()))
                 continue
             requirements.append(requirement)
     return requirements

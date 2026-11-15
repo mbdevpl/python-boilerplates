@@ -1,15 +1,6 @@
-include requirements.txt
 include LICENSE
 include NOTICE
 include ./*/py.typed
 
-include requirements_setup.txt
-include requirements_packaging_tests.txt
-include requirements_config.txt
-include requirements_logging.txt
-include requirements_sentry.txt
-include requirements_cli.txt
-include requirements_git_repo_tests.txt
-
-include requirements_test.txt
 recursive-include ./test __init__.py
+recursive-include ./test/examples *

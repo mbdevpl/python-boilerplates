@@ -15,11 +15,11 @@ jobs:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v7
+      - uses: astral-sh/setup-uv@v10.3.3
         with:
           python-version: '3.15'
-      - run: pip install build~=1.2
-      - run: python -m build
+      - run: uv sync --only-group publish
+      - run: uv run -m build
       - uses: softprops/action-gh-release@v3.0.4
         with:
           prerelease: ${{ contains(github.ref, '.dev') || contains(github.ref, 'rc') }}
@@ -37,9 +37,9 @@ jobs:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v7
+      - uses: astral-sh/setup-uv@v10.3.3
         with:
           python-version: '3.15'
-      - run: pip install build~=1.2
-      - run: python -m build
+      - run: uv sync --only-group publish
+      - run: uv run -m build
       - uses: pypa/gh-action-pypi-publish@release/v1

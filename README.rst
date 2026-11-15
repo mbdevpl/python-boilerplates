@@ -36,9 +36,7 @@ Requirements
 
 Python version 3.11 or later.
 
-Python libraries as specified in `<requirements.txt>`_.
-
-Building and running tests additionally requires packages listed in `<requirements_test.txt>`_.
+Dependencies are listed in `<pyproject.toml>`_.
 
 Tested on Linux, macOS and Windows.
 
@@ -119,7 +117,7 @@ Example ``test/test_packaging.py``:
     class Tests(boilerplates.packaging_tests.PackagingTests):
         pass
 
-And, you will need to add the following to your ``requirements_test.txt`` file (or equivalent):
+And, you will need to add the following to your dependencies:
 
 .. code:: text
 
@@ -140,7 +138,7 @@ Example usage:
 
     boilerplates.config.initialize_config_directory('app_name')
 
-And, you will need to add the following to your ``requirements.txt`` file (or equivalent):
+And, you will need to add the following to your dependencies:
 
 .. code:: text
 
@@ -241,7 +239,7 @@ As for using the logging in your code, you can use it as usual, for example:
     # in usual module files:
     _LOG = logging.getLogger(__name__)
 
-And, you will need to add the following to your ``requirements.txt`` file (or equivalent):
+And, you will need to add the following to your dependencies:
 
 .. code:: text
 
@@ -285,7 +283,7 @@ Then, the example ``__main__.py`` file may look like:
 You can and should adjust the class fields to your needs, please take a look
 at the ``boilerplates.sentry.Sentry`` class implementation for details.
 
-And, you will need to add the following to your ``requirements.txt`` file (or equivalent):
+And, you will need to add the following to your dependencies:
 
 .. code:: text
 
@@ -340,7 +338,7 @@ And then, an example ``__main__.py`` file may look like:
     if __name__ == '__main__':
         cli.main()
 
-And, you will need to add the following to your ``requirements.txt`` file (or equivalent):
+And, you will need to add the following to your dependencies:
 
 .. code:: text
 
@@ -398,7 +396,7 @@ in your test folder, for example ``test/test_with_git_repo.py``:
 However, you will need to check the ``boilerplates.git_repo_tests.GitRepoTests`` class
 for details of available features.
 
-And, you will need to add the following to your ``requirements_test.txt`` file (or equivalent):
+And, you will need to add the following to your dependencies:
 
 .. code:: text
 
