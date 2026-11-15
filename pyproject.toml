@@ -32,7 +32,7 @@ sentry = [
 setup = [
     'docutils~=0.20',
     'Pygments~=2.14',
-    'setuptools>=77.0.3'
+    'setuptools>=84.2.1'
 ]
 
 [dependency-groups]
@@ -71,7 +71,7 @@ requires = [
     'packaging~=26.3',
     'Pygments~=2.21',
     'semver~=3.0',
-    'setuptools>=79.0'
+    'setuptools>=84.2.1'
 ]
 
 [tool.flake8]
