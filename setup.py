@@ -19,7 +19,7 @@ def prepare_local_version_query() -> None:
         repo_path = pathlib.Path(temporary_path)
         print(f'ensuring version-query repository is available locally at "{repo_path}"')
         repo = git.Repo.clone_from('https://github.com/mbdevpl/version-query', repo_path)
-        repo.git.checkout('v1.7.1')
+        repo.git.checkout('v1.8.0')
         print(f'ensuring version_query module is available locally at "{module_path}"')
         shutil.copytree(repo_path / 'version_query', module_path, dirs_exist_ok=True)
     for filename in ('_version.py', '__main__.py', 'main.py'):
@@ -72,7 +72,7 @@ class Package(boilerplates.setup.Package):
         'Topic :: System :: Software Distribution',
         'Topic :: Utilities',
         'Typing :: Typed']
-    keywords = ['git', 'logging', 'packaging', 'releasing']
+    install_requires = []
     extras_require = {
         'setup': boilerplates.setup.parse_requirements('requirements_setup.txt'),
         'packaging-tests': boilerplates.setup.parse_requirements(
