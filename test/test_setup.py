@@ -6,11 +6,13 @@ import os
 import pathlib
 import tempfile
 import unittest
+import unittest.mock
 
 import boilerplates.setup
 
 _LOG = logging.getLogger(__name__)
 
+EXAMPLES_FOLDER = pathlib.Path(__file__).parent / 'examples'
 
 CLASSIFIERS_LICENSES = (
     'License :: OSI Approved :: Python License (CNRI Python License)',
@@ -77,14 +79,18 @@ class UnitTests(unittest.TestCase):
             self.assertIsInstance(result, str)
 
     def test_requirements(self):
-        results = boilerplates.setup.parse_requirements()
+        results = boilerplates.setup.parse_requirements(str(EXAMPLES_FOLDER / 'example_reqs.txt'))
         self.assertIsInstance(results, list)
         self.assertTrue(all(isinstance(result, str) for result in results), msg=results)
+        self.assertIn('example-package', results)
 
     def test_requirements_nested(self):
-        results = boilerplates.setup.parse_requirements('requirements_test.txt')
+        results = boilerplates.setup.parse_requirements(
+            str(EXAMPLES_FOLDER / 'example_reqs_more.txt'))
         self.assertIsInstance(results, list)
         self.assertTrue(all(isinstance(result, str) for result in results), msg=results)
+        self.assertIn('example-package', results)
+        self.assertIn('example-package-more', results)
 
     def test_requirements_empty(self):
         with tempfile.NamedTemporaryFile('w', delete=False) as reqs_file:
@@ -226,7 +232,8 @@ class PackageTests(unittest.TestCase):
         del Package.packages
         del Package.install_requires
         del Package.python_requires
-        Package.prepare()
+        with unittest.mock.patch.object(boilerplates.setup, 'parse_requirements', return_value=[]):
+            Package.prepare()
 
         del Package.version
         with self.assertRaises(FileNotFoundError):
@@ -240,7 +247,8 @@ class PackageTests(unittest.TestCase):
             version = '0.1.0'
 
         self.assertIsNone(Package._existing_license_file_patterns)
-        Package.prepare()
+        with unittest.mock.patch.object(boilerplates.setup, 'parse_requirements', return_value=[]):
+            Package.prepare()
         self.assertIsNotNone(Package._existing_license_file_patterns)
         assert Package._existing_license_file_patterns is not None
         self.assertGreater(len(Package._existing_license_file_patterns), 0)
