@@ -27,7 +27,7 @@ packaging-tests = [
     'wheel>=0.43'
 ]
 sentry = [
-    'sentry-sdk[pure_eval]~=2.5'
+    'sentry-sdk[pure_eval]~=2.74'
 ]
 setup = [
     'docutils~=0.20',
