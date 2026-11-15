@@ -11,3 +11,4 @@ include requirements_cli.txt
 include requirements_git_repo_tests.txt
 
 recursive-include ./test __init__.py
+recursive-include ./test/examples *
