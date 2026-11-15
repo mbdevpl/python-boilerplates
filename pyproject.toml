@@ -3,7 +3,37 @@ name = 'boilerplates'
 requires-python = '>=3.11,<4'
 keywords = ['git', 'logging', 'packaging', 'releasing']
 dependencies = []
-dynamic = ['authors', 'classifiers', 'description', 'license', 'maintainers', 'optional-dependencies', 'readme', 'version']
+dynamic = ['authors', 'classifiers', 'description', 'license', 'maintainers', 'readme', 'version']
+
+[project.optional-dependencies]
+all = [
+    'boilerplates[cli,config,git-repo-tests,logging,packaging-tests,sentry,setup]'
+]
+cli = [
+    'argcomplete~=3.7'
+]
+config = []
+git-repo-tests = [
+    'GitPython~=3.1'
+]
+logging = [
+    'boilerplates[config]',
+    'colorlog~=6.7'
+]
+packaging-tests = [
+    'boilerplates[setup]',
+    'build~=1.2',
+    'pip>=24.0',
+    'wheel>=0.43'
+]
+sentry = [
+    'sentry-sdk[pure_eval]~=2.5'
+]
+setup = [
+    'docutils~=0.20',
+    'Pygments~=2.14',
+    'setuptools>=77.0.3'
+]
 
 [dependency-groups]
 coverage = [
@@ -30,17 +60,7 @@ pylint = [
     'pylint~=4.1'
 ]
 test = [
-    'argcomplete~=3.7',
-    'build~=1.2',
-    'colorlog~=6.7',
-    'docutils~=0.20',
-    'GitPython~=3.1',
-    'pip>=24.0',
-    'Pygments~=2.14',
-    'sentry-sdk[pure_eval]~=2.5',
-    'setuptools>=77.0.3',
-    'version-query~=1.8',
-    'wheel>=0.43'
+    'version-query~=1.8'
 ]
 
 [build-system]

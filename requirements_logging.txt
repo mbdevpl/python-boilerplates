@@ -1,2 +1,0 @@
--r requirements_config.txt
-colorlog ~= 6.7

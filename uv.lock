@@ -112,6 +112,18 @@ name = "boilerplates"
 source = { editable = "." }
 
 [package.optional-dependencies]
+all = [
+    { name = "argcomplete" },
+    { name = "build" },
+    { name = "colorlog" },
+    { name = "docutils" },
+    { name = "gitpython" },
+    { name = "pip" },
+    { name = "pygments" },
+    { name = "sentry-sdk", extra = ["pure-eval"] },
+    { name = "setuptools" },
+    { name = "wheel" },
+]
 cli = [
     { name = "argcomplete" },
 ]
@@ -140,19 +152,9 @@ setup = [
 
 [package.dev-dependencies]
 coverage = [
-    { name = "argcomplete" },
-    { name = "build" },
     { name = "codecov" },
-    { name = "colorlog" },
     { name = "coverage" },
-    { name = "docutils" },
-    { name = "gitpython" },
-    { name = "pip" },
-    { name = "pygments" },
-    { name = "sentry-sdk", extra = ["pure-eval"] },
-    { name = "setuptools" },
     { name = "version-query" },
-    { name = "wheel" },
 ]
 flake518 = [
     { name = "flake518" },
@@ -173,52 +175,32 @@ pylint = [
     { name = "pylint" },
 ]
 test = [
-    { name = "argcomplete" },
-    { name = "build" },
-    { name = "colorlog" },
-    { name = "docutils" },
-    { name = "gitpython" },
-    { name = "pip" },
-    { name = "pygments" },
-    { name = "sentry-sdk", extra = ["pure-eval"] },
-    { name = "setuptools" },
     { name = "version-query" },
-    { name = "wheel" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "argcomplete", marker = "extra == 'cli'", specifier = "~=3.7" },
+    { name = "boilerplates", extras = ["cli", "config", "git-repo-tests", "logging", "packaging-tests", "sentry", "setup"], marker = "extra == 'all'" },
+    { name = "boilerplates", extras = ["config"], marker = "extra == 'logging'" },
+    { name = "boilerplates", extras = ["setup"], marker = "extra == 'packaging-tests'" },
     { name = "build", marker = "extra == 'packaging-tests'", specifier = "~=1.2" },
     { name = "colorlog", marker = "extra == 'logging'", specifier = "~=6.7" },
-    { name = "docutils", marker = "extra == 'packaging-tests'", specifier = "~=0.20" },
     { name = "docutils", marker = "extra == 'setup'", specifier = "~=0.20" },
     { name = "gitpython", marker = "extra == 'git-repo-tests'", specifier = "~=3.1" },
     { name = "pip", marker = "extra == 'packaging-tests'", specifier = ">=24.0" },
-    { name = "pygments", marker = "extra == 'packaging-tests'", specifier = "~=2.14" },
     { name = "pygments", marker = "extra == 'setup'", specifier = "~=2.14" },
     { name = "sentry-sdk", extras = ["pure-eval"], marker = "extra == 'sentry'", specifier = "~=2.5" },
-    { name = "setuptools", marker = "extra == 'packaging-tests'", specifier = ">=77.0.3" },
     { name = "setuptools", marker = "extra == 'setup'", specifier = ">=77.0.3" },
     { name = "wheel", marker = "extra == 'packaging-tests'", specifier = ">=0.43" },
 ]
-provides-extras = ["setup", "packaging-tests", "config", "logging", "sentry", "cli", "git-repo-tests"]
+provides-extras = ["all", "cli", "config", "git-repo-tests", "logging", "packaging-tests", "sentry", "setup"]
 
 [package.metadata.requires-dev]
 coverage = [
-    { name = "argcomplete", specifier = "~=3.7" },
-    { name = "build", specifier = "~=1.2" },
     { name = "codecov", specifier = "~=2.1" },
-    { name = "colorlog", specifier = "~=6.7" },
     { name = "coverage", specifier = "~=7.2" },
-    { name = "docutils", specifier = "~=0.20" },
-    { name = "gitpython", specifier = "~=3.1" },
-    { name = "pip", specifier = ">=24.0" },
-    { name = "pygments", specifier = "~=2.14" },
-    { name = "sentry-sdk", extras = ["pure-eval"], specifier = "~=2.5" },
-    { name = "setuptools", specifier = ">=77.0.3" },
     { name = "version-query", specifier = "~=1.8" },
-    { name = "wheel", specifier = ">=0.43" },
 ]
 flake518 = [{ name = "flake518", specifier = "~=1.6" }]
 mypy = [
@@ -232,19 +214,7 @@ publish = [
 ]
 pydocstyle = [{ name = "pydocstyle", specifier = "~=6.3" }]
 pylint = [{ name = "pylint", specifier = "~=4.1" }]
-test = [
-    { name = "argcomplete", specifier = "~=3.7" },
-    { name = "build", specifier = "~=1.2" },
-    { name = "colorlog", specifier = "~=6.7" },
-    { name = "docutils", specifier = "~=0.20" },
-    { name = "gitpython", specifier = "~=3.1" },
-    { name = "pip", specifier = ">=24.0" },
-    { name = "pygments", specifier = "~=2.14" },
-    { name = "sentry-sdk", extras = ["pure-eval"], specifier = "~=2.5" },
-    { name = "setuptools", specifier = ">=77.0.3" },
-    { name = "version-query", specifier = "~=1.8" },
-    { name = "wheel", specifier = ">=0.43" },
-]
+test = [{ name = "version-query", specifier = "~=1.8" }]
 
 [[package]]
 name = "build"

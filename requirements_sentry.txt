@@ -1,1 +1,0 @@
-sentry-sdk[pure_eval] ~= 2.5
