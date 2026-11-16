@@ -45,6 +45,7 @@ flake518 = [
     'flake518~=1.6'
 ]
 mypy = [
+    {include-group = 'test'},
     'mypy~=2.4',
     'types-docutils~=0.20',
     'types-setuptools>=70.0'
@@ -57,6 +58,7 @@ pydocstyle = [
     'pydocstyle~=6.3'
 ]
 pylint = [
+    {include-group = 'test'},
     'pylint~=4.1'
 ]
 test = [
