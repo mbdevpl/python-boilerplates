@@ -163,6 +163,7 @@ mypy = [
     { name = "mypy" },
     { name = "types-docutils" },
     { name = "types-setuptools" },
+    { name = "version-query" },
 ]
 publish = [
     { name = "build" },
@@ -173,6 +174,7 @@ pydocstyle = [
 ]
 pylint = [
     { name = "pylint" },
+    { name = "version-query" },
 ]
 test = [
     { name = "version-query" },
@@ -207,13 +209,17 @@ mypy = [
     { name = "mypy", specifier = "~=2.4" },
     { name = "types-docutils", specifier = "~=0.20" },
     { name = "types-setuptools", specifier = ">=70.0" },
+    { name = "version-query", specifier = "~=1.8" },
 ]
 publish = [
     { name = "build", specifier = "~=1.6" },
     { name = "twine", specifier = "~=7.0" },
 ]
 pydocstyle = [{ name = "pydocstyle", specifier = "~=6.3" }]
-pylint = [{ name = "pylint", specifier = "~=4.1" }]
+pylint = [
+    { name = "pylint", specifier = "~=4.1" },
+    { name = "version-query", specifier = "~=1.8" },
+]
 test = [{ name = "version-query", specifier = "~=1.8" }]
 
 [[package]]

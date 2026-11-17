@@ -45,6 +45,7 @@ flake518 = [
     'flake518~=1.6'
 ]
 mypy = [
+    {include-group = 'test'},
     'mypy~=2.4',
     'types-docutils~=0.20',
     'types-setuptools>=70.0'
@@ -57,6 +58,7 @@ pydocstyle = [
     'pydocstyle~=6.3'
 ]
 pylint = [
+    {include-group = 'test'},
     'pylint~=4.1'
 ]
 test = [
@@ -92,24 +94,19 @@ ignore = [
     'D406', 'D407', 'D412', 'D413'
 ]
 
-[tool.pylint.MASTER]
+[tool.pylint.main]
 load-plugins = [
     'pylint.extensions.broad_try_clause',
     'pylint.extensions.mccabe',
     'pylint.extensions.no_self_use',
     'pylint.extensions.redefined_variable_type'
 ]
-
-[tool.pylint.'MESSAGES CONTROL']
-docstring-min-length = 5
-
-[tool.pylint.SIMILARITIES]
-ignore-imports = 'yes'
-min-similarity-lines = 5
-
-[tool.pylint.BASIC]
-no-docstring-rgx = '^(test)?_|.*Tests$'
-unsafe-load-any-extension = 'yes'
-
-[tool.pylint.REPORTS]
 output-format = 'colorized'
+
+[tool.pylint.basic]
+docstring-min-length = 5
+no-docstring-rgx = '^(test)?_|.*Tests$'
+
+[tool.pylint.similarities]
+ignore-imports = true
+min-similarity-lines = 5
